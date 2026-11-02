@@ -150,7 +150,7 @@ class AppFooter extends HTMLElement {
         <div class="col-foot" id="useful-links">
           <h3 class="h3-foot">Links</h3>
           <div class="links">
-            <a class="foot-link" href="/">Home</a>
+            <a class="foot-link" href="index.html">Home</a>
             <a class="foot-link" href="sobre-nosotros.html">Acerca de nosotros</a>
             <a class="foot-link" href="contactanos.html">Contactanos</a>
           </div>
