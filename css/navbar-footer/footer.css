@@ -1,0 +1,156 @@
+:root {
+    --color-1: #0A1F6E;
+    --color-2: #5dccff;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    background-color: var(--color-1);
+    position: relative;
+    width: 100%;
+    min-height: 350px;
+    padding: 3rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.container-foot {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.row-foot{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 165px 165px;
+    column-gap: 4rem;
+    align-items: stretch;
+    width: 100%;
+}
+
+.col-foot{
+    min-width: 0;
+    color: aliceblue;
+}
+
+/* Columna company */
+#company{
+    display: flex;
+    flex-direction: column;
+}
+
+#company p{
+    margin: 0;
+    max-width: 520px;
+}
+
+.col-foot .logo{
+    display: block;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+}
+
+.col-foot .copy{
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+/* Títulos */
+.col-foot .h3-foot{
+    color: var(--color-2);
+    font-size: 1.75rem;
+    line-height: 2rem;
+    margin: 14px 0 26px;
+    position: relative;
+    cursor: pointer;
+}
+
+.col-foot .h3-foot::after{
+    content: '';
+    height: 3px;
+    width: 0;
+    background-color: var(--color-2);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+.col-foot .h3-foot:hover::after{
+    width: 30px;
+}
+
+/* Links */
+.col-foot .links .foot-link{
+    display: block;
+    white-space: nowrap;
+    text-decoration: none;
+    color: aliceblue !important;
+    margin-bottom: 5px;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.col-foot .links .foot-link:last-child{
+    margin-bottom: 0;
+}
+
+.foot-link i{
+    margin-right: 6px;
+}
+
+.col-foot .links .foot-link::before{
+    content: '';
+    height: 16px;
+    width: 3px;
+    position: absolute;
+    top: 5px;
+    left: -10px;
+    background-color: var(--color-2);
+    transition: 0.5s ease;
+    opacity: 0;
+}
+
+.col-foot .links .foot-link:hover::before{
+    opacity: 1;
+}
+
+.col-foot .links .foot-link:hover{
+    transform: translateX(-8px);
+    color: var(--color-2) !important;
+}
+
+/* Responsive */
+
+@media (max-width: 1100px) {
+    .row-foot{
+        column-gap: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .row-foot{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+    #company{
+        grid-column: 1 / -1;
+    }
+    .col-foot .copy{
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .row-foot{
+        grid-template-columns: 1fr;
+    }
+}

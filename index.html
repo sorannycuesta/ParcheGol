@@ -11,8 +11,9 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <!-- CSS propio -->
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet" href="/ParcheGol/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/navbar-footer/navbar.css">
+  <link rel="stylesheet" href="css/navbar-footer/footer.css">
 
   <!--fuentes-->
 
@@ -32,10 +33,14 @@
 
 
   <!-- 1. HERO + RESERVA RÁPIDA-->
-  <header id="inicio" class=" portada1 text-white py-5">
+  <header >
     <!-- sidebar para navegar -->
+    <app-navbar></app-navbar>
     <app-sidebar></app-sidebar>
+  </header>
 
+
+  <section id="inicio" class=" portada1 text-white py-5">
     <div class=" container py-lg-5">
       <div class=" row align-items-center g-5">
 
@@ -109,14 +114,14 @@
 
       </div>
     </div>
-  </header>
-
+</section>
 
   <!-- 2. BENEFICIOS DE RESERVAR AQUÍ -->
   <section id="beneficios" class="beneficios py-5 text-dark">
     <div class="container">
       <h2 class="text-center fw-bold mb-2 text-white ">Beneficios de reservar aquí</h2>
-      <p class="text-center text-secondary mb-5 text-white">Sin sorpresas ni letra pequeña. Reserva con total tranquilidad.</p>
+      <p class="text-center text-secondary mb-5 text-white">Sin sorpresas ni letra pequeña. Reserva con total
+        tranquilidad.</p>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         <div class="col">
@@ -314,6 +319,10 @@
 
     </div>
   </section>
+
+  <app-footer></app-footer>
+
+
 
   <!-- Bootstrap 5 JS Bundle-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

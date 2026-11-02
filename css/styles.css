@@ -5,8 +5,8 @@ html {
     /* evita destellos blancos al hacer scroll rápido */
 }
 
-header {
-    background-image: url("/ParcheGol/img/messi.jpg");
+#inicio {
+    background-image: url("../img/messi.jpg");
 
     background-repeat: no-repeat;
     background-position: center;
