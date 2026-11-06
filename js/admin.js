@@ -196,7 +196,27 @@ function obtenerServiciosSeleccionados() {
 }
 
 // Captura los valores del formulario y construye el objeto que se agrega al catálogo.
-function capturarDatosCancha() {
+
+function capturarDatosCancha(imagenBase64) {
+  return {
+    id: Date.now(), // Usamos timestamp para asegurar un ID único y persistente
+    titulo: elementos.titulo.value.trim(),
+    descripcion: elementos.descripcion.value.trim(),
+    imagen: imagenBase64, // Aquí guardamos el string en Base64 para que persista en localStorage
+    categoria: elementos.categoria.value,
+    servicios: obtenerServiciosSeleccionados(),
+    disponibilidad: {
+      dias: obtenerDiasSeleccionados(),
+      horaInicio: elementos.horaInicio.value,
+      horaFin: elementos.horaFin.value,
+    },
+    capacidad: Number(elementos.capacidad.value),
+    ubicacion: elementos.ubicacion.value.trim(),
+    enlaceMaps: elementos.maps.value.trim(),
+  };
+}
+
+/* function capturarDatosCancha() {
   const archivo = elementos.imagen.files[0];
 
   return {
@@ -218,7 +238,7 @@ function capturarDatosCancha() {
     ubicacion: elementos.ubicacion.value.trim(),
     enlaceMaps: elementos.maps.value.trim(),
   };
-}
+} */
 
 function crearElemento(tag, clase, texto) {
   const elemento = document.createElement(tag);
@@ -328,7 +348,64 @@ function limpiarValidaciones() {
   elementos.contadorDescripcion.textContent = "0";
 }
 
+
 form.addEventListener("submit", (evento) => {
+  // Evitamos que la página se recargue por defecto al enviar el formulario
+  evento.preventDefault();
+
+  // Ejecutamos las validaciones habituales de texto, imagen y días
+  const camposValidos = campos.map(validarCampo).every(Boolean);
+  const imagenValida = validarImagen();
+  const diasValidos = validarDias();
+
+  // Si algo falla, detenemos el proceso y enfocamos el primer error
+  if (!camposValidos || !imagenValida || !diasValidos) {
+    form.querySelector(".is-invalid")?.focus();
+    return;
+  }
+
+  // Con esto obtenemos el archivo de imagen que selecciono el usuario en el input
+  const archivo = elementos.imagen.files[0];
+  
+  // 4. Creamos un lector de archivos (FileReader) nativo de JavaScript.
+  // esta  parte es obligatorio pues es para convertir la imagen local en un texto largo (Base64) 
+  // y poder guardarla en el localStorage.
+  const lector = new FileReader();
+
+  // Esta funcion se ejecuta automaticamente un segundo despues, cuando 
+  // el lector termina de leer y transformar la imagen a Base64.
+  lector.onload = function (e) {
+    const imagenBase64 = e.target.result; // Aqui ya tenemos la imagen convertida a texto
+    
+    // Se capturan todos los datos del formulario, pasándole la imagen en Base64
+    const cancha = capturarDatosCancha(imagenBase64);
+
+    // Agregamos la nueva cancha al arreglo local y a las vistas previas
+    canchas.push(cancha);
+    vistasPrevias.set(cancha.id, imagenBase64);
+
+    // Guardamos el arreglo completo de canchas en el localStorage del navegador transformandolo a texto JSON.
+    localStorage.setItem("canchasParcheGol", JSON.stringify(canchas));
+
+    // Pintamos la tarjeta en pantalla, actualizamos contadores y consola
+    mostrarCancha(cancha);
+    actualizarContador();
+    actualizarCatalogoJson();
+
+    // Limpiamos variables temporales, reseteamos el formulario y borramos validaciones
+    urlImagenSeleccionada = null;
+    form.reset();
+    limpiarVistaPrevia();
+    limpiarValidaciones();
+  };
+
+  // Si el archivo existe, disparamos la lectura para que comience el proceso de FileReader
+  if (archivo) {
+    lector.readAsDataURL(archivo); 
+  }
+});
+
+/* form.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
   // Se ejecutan todas las validaciones para mostrar los errores de una sola vez.
@@ -355,6 +432,24 @@ form.addEventListener("submit", (evento) => {
   form.reset();
   limpiarVistaPrevia();
   limpiarValidaciones();
+}); */
+
+// Funcion para cargar las canchas guardadas en el navegador al abrir la página
+function cargarCanchasGuardadas() {
+  const canchasGuardadas = JSON.parse(localStorage.getItem("canchasParcheGol")) || [];
+  
+  canchasGuardadas.forEach(cancha => {
+    canchas.push(cancha);
+    vistasPrevias.set(cancha.id, cancha.imagen);
+    mostrarCancha(cancha);
+  });
+  
+  actualizarContador();
+}
+
+// Se ejecuta automáticamente al cargar la pagina de administracion
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCanchasGuardadas();
 });
 
 form.addEventListener("reset", () => {
