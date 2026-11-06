@@ -1,0 +1,630 @@
+
+/* ============================================================
+   PARCHEGOL - Panel de administración
+   Paleta: Space Indigo, Dust Grey, Muted Teal, Ash Grey y Slate Grey
+   Los estilos del panel están limitados a .admin-page.
+   ============================================================ */
+.admin-page {
+    --admin-blue: #1B264F;
+    --admin-blue-dark: #121B3D;
+    --admin-cyan: #A2C5AC;
+    --admin-accent: #9DB5B2;
+
+    --admin-text: #D3D5D4;
+    --admin-muted: #878E99;
+    --admin-border: rgba(157, 181, 178, 0.3);
+    --admin-soft: rgba(135, 142, 153, 0.12);
+
+    --admin-font-title: "Bricolage Grotesque", sans-serif;
+    --admin-font-text: "Plus Jakarta Sans", sans-serif;
+
+    min-height: 75vh;
+    padding-bottom: 56px;
+    background: var(--admin-blue);
+    color: var(--admin-text);
+    font-family: var(--admin-font-text);
+}
+
+/* puro scroll */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--altura-navbar);
+    background-color: var(--fondo-noche);
+}
+
+
+/*contenedor y encabezado */
+
+.admin-page .admin-container {
+    width: min(100% - 32px, 1540px);
+    margin-inline: auto;
+}
+
+.admin-page .admin-hero {
+    padding: 54px 0 62px;
+    color: var(--admin-text);
+    background: linear-gradient(
+        110deg,
+        #1B264F 0%,
+        #26365F 55%,
+        #878E99 100%
+    );
+}
+
+.admin-page .admin-eyebrow,
+.admin-page .admin-section-kicker {
+    display: inline-flex;
+    align-items: center;
+    color: var(--admin-cyan);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+}
+
+.admin-page .admin-hero h1 {
+    margin: 14px 0 10px;
+    font-family: var(--admin-font-title);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.admin-page .admin-hero p {
+    max-width: 650px;
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 1.02rem;
+}
+
+.admin-page .admin-content {
+    position: relative;
+    margin-top: -26px;
+}
+
+
+/* paneles principales */
+
+.admin-page .admin-panel {
+    height: 100%;
+    padding: clamp(20px, 3vw, 32px);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    background: rgba(135, 142, 153, 0.12);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+}
+
+.admin-page .admin-panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-page .admin-panel-heading h2 {
+    margin: 6px 0 5px;
+    color: var(--admin-text);
+    font-family: var(--admin-font-title);
+    font-size: clamp(1.45rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+}
+
+.admin-page .admin-panel-heading p {
+    margin: 0;
+    color: var(--admin-muted);
+    font-size: 0.9rem;
+}
+
+.admin-page .admin-heading-icon,
+.admin-page .admin-empty-icon {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(162, 197, 172, 0.16);
+    color: var(--admin-cyan);
+    font-size: 1.25rem;
+}
+
+
+/* forms y campos*/
+
+.admin-page .admin-form-label,
+.admin-page .admin-fieldset legend {
+    margin-bottom: 8px;
+    color: var(--admin-text);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.admin-page .admin-field .form-control,
+.admin-page .admin-field .form-select {
+    min-height: 46px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background-color: rgba(27, 38, 79, 0.75);
+    color: var(--admin-text);
+    font-family: var(--admin-font-text);
+    font-size: 0.9rem;
+}
+
+.admin-page .admin-field .form-control:focus,
+.admin-page .admin-field .form-select:focus {
+    border-color: var(--admin-cyan);
+    background-color: var(--admin-blue);
+    color: var(--admin-text);
+    box-shadow: 0 0 0 0.2rem rgba(162, 197, 172, 0.17);
+}
+
+.admin-page .admin-field .form-control::placeholder {
+    color: var(--admin-muted);
+}
+
+.admin-page .admin-field .form-select option {
+    background-color: var(--admin-blue);
+    color: var(--admin-text);
+}
+
+.admin-page .admin-field textarea.form-control {
+    min-height: 104px;
+    resize: vertical;
+}
+
+.admin-page .admin-field .input-group-text {
+    border-color: var(--admin-border);
+    background: rgba(135, 142, 153, 0.2);
+    color: var(--admin-text);
+    font-size: 0.82rem;
+}
+
+.admin-page .admin-field .input-group>.form-control {
+    border-radius: 9px 0 0 9px;
+}
+
+.admin-page .admin-field .input-group>.input-group-text {
+    border-radius: 0 9px 9px 0;
+}
+
+.admin-page .admin-field .form-text,
+.admin-page .admin-hint {
+    color: var(--admin-muted);
+    font-size: 0.78rem;
+}
+
+.admin-page .admin-hint {
+    margin: -3px 0 12px;
+}
+
+.admin-page .admin-counter {
+    margin-left: auto;
+    padding-top: 5px;
+    color: var(--admin-muted);
+    font-size: 0.75rem;
+}
+
+
+/* imagenes*/
+
+.admin-page .admin-upload-area {
+    position: relative;
+    display: grid;
+    min-height: 180px;
+    overflow: hidden;
+    place-items: center;
+    border: 1.5px dashed var(--admin-accent);
+    border-radius: 13px;
+    background: rgba(27, 38, 79, 0.55);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-page .admin-upload-area:hover {
+    border-color: var(--admin-cyan);
+    background: rgba(162, 197, 172, 0.08);
+}
+
+.admin-page .admin-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 20px;
+    color: var(--admin-muted);
+    text-align: center;
+}
+
+.admin-page .admin-upload-placeholder>i {
+    color: var(--admin-cyan);
+    font-size: 2rem;
+}
+
+.admin-page .admin-upload-placeholder strong {
+    color: var(--admin-text);
+    font-size: 0.92rem;
+}
+
+.admin-page .admin-upload-placeholder small {
+    font-size: 0.75rem;
+}
+
+.admin-page .admin-upload-preview {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.admin-page .admin-file-input {
+    margin-top: 10px;
+    font-size: 0.82rem;
+}
+
+.admin-page .admin-field .valid-feedback,
+.admin-page .admin-field .invalid-feedback,
+.admin-page .admin-fieldset .invalid-feedback {
+    font-size: 0.76rem;
+}
+
+
+/* dias*/
+
+.admin-page .admin-fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.admin-page .admin-fieldset legend {
+    float: none;
+    width: auto;
+}
+
+.admin-page .admin-check-card {
+    min-height: 44px;
+    padding: 11px 10px 10px 34px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background: rgba(27, 38, 79, 0.65);
+    color: var(--admin-text);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-page .admin-check-card:hover {
+    border-color: var(--admin-cyan);
+    background: rgba(162, 197, 172, 0.08);
+}
+
+.admin-page .admin-check-card .form-check-input {
+    margin-left: -21px;
+    border-color: var(--admin-accent);
+    background-color: transparent;
+}
+
+.admin-page .admin-check-card .form-check-input:checked {
+    border-color: var(--admin-cyan);
+    background-color: var(--admin-cyan);
+}
+
+.admin-page .admin-check-card .form-check-label {
+    color: var(--admin-text);
+    font-size: 0.76rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.admin-page .admin-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.admin-page .admin-days-grid .form-check {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-page .admin-days-grid .form-check-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.admin-page .admin-days-grid .form-check-label {
+    display: grid;
+    min-height: 40px;
+    place-items: center;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    background: rgba(27, 38, 79, 0.65);
+    color: var(--admin-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-page .admin-days-grid .form-check-input:checked+.form-check-label {
+    border-color: var(--admin-cyan);
+    background: var(--admin-cyan);
+    color: var(--admin-blue);
+}
+
+.admin-page .admin-days-grid .form-check-input:focus-visible+.form-check-label {
+    outline: 3px solid rgba(162, 197, 172, 0.3);
+    outline-offset: 2px;
+}
+
+
+/* btns formulario*/
+
+.admin-page .admin-submit-btn {
+    min-height: 48px;
+    border: 1px solid var(--admin-cyan);
+    border-radius: 9px;
+    background: var(--admin-cyan);
+    color: var(--admin-blue);
+    font-weight: 700;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-page .admin-submit-btn:hover,
+.admin-page .admin-submit-btn:focus-visible {
+    border-color: var(--admin-accent);
+    background: var(--admin-accent);
+    color: var(--admin-blue);
+    transform: translateY(-1px);
+}
+
+.admin-page .admin-reset-btn {
+    color: var(--admin-muted);
+    font-size: 0.85rem;
+}
+
+.admin-page .admin-reset-btn:hover {
+    color: var(--admin-cyan);
+}
+
+
+/* canchas*/
+
+.admin-page .admin-catalog-heading {
+    align-items: center;
+}
+
+.admin-page .admin-count {
+    flex: 0 0 auto;
+    padding: 7px 12px;
+    border: 1px solid var(--admin-border);
+    border-radius: 50px;
+    background: rgba(162, 197, 172, 0.15);
+    color: var(--admin-cyan);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.admin-page .admin-court-list {
+    display: grid;
+    gap: 15px;
+}
+
+
+/* canchas(vacias)*/
+
+.admin-page .admin-empty-state {
+    display: flex;
+    min-height: 340px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    border: 1px dashed var(--admin-border);
+    border-radius: 14px;
+    background: rgba(27, 38, 79, 0.5);
+    text-align: center;
+}
+
+.admin-page .admin-empty-icon {
+    width: 62px;
+    height: 62px;
+    margin-bottom: 17px;
+    border-radius: 18px;
+    font-size: 1.7rem;
+}
+
+.admin-page .admin-empty-state h3 {
+    margin-bottom: 8px;
+    color: var(--admin-text);
+    font-family: var(--admin-font-title);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.admin-page .admin-empty-state p {
+    max-width: 360px;
+    margin: 0;
+    color: var(--admin-muted);
+    font-size: 0.85rem;
+}
+
+
+/* card d canchas*/
+
+.admin-page .admin-court-card {
+    display: grid;
+    grid-template-columns: minmax(120px, 172px) minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--admin-border);
+    border-radius: 13px;
+    background: rgba(27, 38, 79, 0.75);
+}
+
+.admin-page .admin-court-image {
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    object-fit: cover;
+    background: var(--admin-soft);
+}
+
+.admin-page .admin-court-body {
+    min-width: 0;
+    padding: 17px 18px;
+}
+
+.admin-page .admin-court-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.admin-page .admin-court-title {
+    margin: 0;
+    color: var(--admin-text);
+    font-family: var(--admin-font-title);
+    font-size: 1.15rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.admin-page .admin-category-tag {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    border-radius: 50px;
+    background: rgba(162, 197, 172, 0.16);
+    color: var(--admin-cyan);
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.admin-page .admin-court-description {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 9px 0 12px;
+    color: var(--admin-muted);
+    font-size: 0.82rem;
+    -webkit-box-orient: vertical;
+}
+
+.admin-page .admin-court-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 15px;
+    margin-bottom: 9px;
+}
+
+.admin-page .admin-detail-item,
+.admin-page .admin-location-link {
+    color: var(--admin-text);
+    font-size: 0.75rem;
+}
+
+.admin-page .admin-detail-item i,
+.admin-page .admin-location-link i {
+    color: var(--admin-cyan);
+}
+
+.admin-page .admin-days-detail {
+    flex-basis: 100%;
+}
+
+.admin-page .admin-location-link {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: var(--admin-cyan);
+    text-decoration: none;
+}
+
+.admin-page .admin-location-link:hover {
+    color: var(--admin-accent);
+    text-decoration: underline;
+}
+
+.admin-page .admin-services {
+    margin: 8px 0 12px;
+    color: var(--admin-muted);
+    font-size: 0.74rem;
+}
+
+.admin-page .admin-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.admin-page .admin-card-actions .btn {
+    font-size: 0.73rem;
+}
+
+
+/* nota*/
+
+.admin-page .admin-console-note {
+    margin-top: 22px;
+    padding: 14px 16px;
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    background: rgba(135, 142, 153, 0.12);
+    color: var(--admin-muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.admin-page .admin-console-note>i {
+    color: var(--admin-cyan);
+}
+
+.admin-page .admin-console-note kbd {
+    background: var(--admin-blue-dark);
+    color: var(--admin-text);
+}
+
+@media (max-width: 575.98px) {
+
+    .admin-page .admin-container {
+        width: min(100% - 22px, 1540px);
+    }
+
+    .admin-page .admin-hero {
+        padding: 42px 0 54px;
+    }
+
+    .admin-page .admin-panel {
+        padding: 19px 15px;
+        border-radius: 14px;
+    }
+
+    .admin-page .admin-check-card {
+        padding-left: 30px;
+    }
+
+    .admin-page .admin-check-card .form-check-input {
+        margin-left: -19px;
+    }
+
+    .admin-page .admin-check-card .form-check-label {
+        font-size: 0.7rem;
+    }
+
+    .admin-page .admin-court-card {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-page .admin-court-image {
+        height: 180px;
+        min-height: 0;
+    }
+
+    .admin-page .admin-catalog-heading {
+        align-items: flex-start;
+    }
+}
