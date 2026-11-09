@@ -5,8 +5,14 @@
 const form = document.getElementById("formCancha");
 const listaCanchas = document.getElementById("listaCanchas");
 const CLAVE_CANCHA = "canchasParcheGol";
-const CLAVE_FORM = "formCanchas"
+const CLAVE_FORM = "formCanchas";
+const CLAVE_BORRADOR = "borradorCancha";
+const botonSubmit = form.querySelector('button[type="submit"], button:not([type])');
+const textoSubmit = botonSubmit.textContent;
 
+
+let idEnEdicion = null;   // null = creando, con valor = editando esa cancha
+let imagenActual = null;  // imagen Base64 de la cancha que se edita
 
 // Configuración del horario: cambia estos valores para ajustar
 // el rango permitido de apertura y cierre.
@@ -139,11 +145,12 @@ function validarImagen() {
   const contenedor = elementos.imagen.closest(".admin-field");
   const feedbackValido = contenedor.querySelector(".valid-feedback");
   const feedbackInvalido = contenedor.querySelector(".invalid-feedback");
-  const correcto = Boolean(
-    archivo &&
-    EXTENSION_IMAGEN.test(archivo.name) &&
-    ["image/jpeg", "image/png", "image/webp"].includes(archivo.type) &&
-    archivo.size <= TAMANO_MAXIMO_IMAGEN
+  const mantieneImagen = idEnEdicion !== null && !archivo;
+  const correcto = mantieneImagen || Boolean(
+  archivo &&
+  EXTENSION_IMAGEN.test(archivo.name) &&
+  ["image/jpeg", "image/png", "image/webp"].includes(archivo.type) &&
+  archivo.size <= TAMANO_MAXIMO_IMAGEN
   );
 
   elementos.imagen.classList.toggle("is-valid", correcto);
@@ -166,6 +173,13 @@ function limpiarVistaPrevia() {
 elementos.imagen.addEventListener("change", () => {
   limpiarVistaPrevia();
   const archivo = elementos.imagen.files[0];
+    if (!archivo && idEnEdicion !== null) {
+    elementos.vistaPrevia.src = imagenActual;
+    elementos.vistaPrevia.hidden = false;
+    elementos.placeholderImagen.hidden = true;
+    validarImagen();
+    return;
+  }
   if (!validarImagen()) return;
 
   urlImagenSeleccionada = URL.createObjectURL(archivo);
@@ -201,9 +215,9 @@ function obtenerServiciosSeleccionados() {
 
 // Captura los valores del formulario y construye el objeto que se agrega al catálogo.
 
-function capturarDatosCancha(imagenBase64) {
+function capturarDatosCancha(imagenBase64, id = Date.now()) {
   return {
-    id: Date.now(), // Usamos timestamp para asegurar un ID único y persistente
+    id, // Usamos timestamp para asegurar un ID único y persistente
     titulo: elementos.titulo.value.trim(),
     descripcion: elementos.descripcion.value.trim(),
     imagen: imagenBase64, // Aquí guardamos el string en Base64 para que persista en localStorage
@@ -219,6 +233,8 @@ function capturarDatosCancha(imagenBase64) {
     enlaceMaps: elementos.maps.value.trim(),
   };
 }
+
+
 
 /* function capturarDatosCancha() {
   const archivo = elementos.imagen.files[0];
@@ -301,10 +317,10 @@ function mostrarCancha(cancha) {
     : "Sin servicios adicionales seleccionados";
 
   const acciones = crearElemento("div", "admin-card-actions");
-  const botonEditar = crearElemento("button", "btn btn-sm btn-outline-primary", "Editar");
+  const botonEditar = crearElemento("button", "btn btn-sm btn-outline-primary editar", "Editar");
   botonEditar.type = "button";
-  botonEditar.disabled = true;
-  botonEditar.title = "Funcionalidad pendiente para una siguiente etapa";
+  botonEditar.dataset.id = cancha.id;
+  botonEditar.title = "Editar una cancha";
   const botonEliminar = crearElemento("button", "btn btn-sm btn-outline-danger", "Eliminar");
   botonEliminar.classList.add("eliminar");
   botonEliminar.dataset.index = cancha.id;
@@ -373,9 +389,9 @@ function eliminarCancha(evento) {
     text: "Your file has been deleted.",
     icon: "success"
   });
-let idCancha = Number(evento.target.dataset.index);
-
-    console.log(idCancha);
+  
+  let idCancha = Number(evento.target.dataset.index);
+  if (idCancha === idEnEdicion) form.reset();
    
     canchas.splice(Number(canchas.findIndex(element => element.id == idCancha)),1);
 
@@ -399,6 +415,122 @@ function guardarCancha(){
 
 }
 
+
+function formularioTieneDatos() {
+  return campos.some(({ el }) => el.value.trim() !== "") ||
+    elementos.imagen.files.length > 0 ||
+    obtenerDiasSeleccionados().length > 0 ||
+    Object.values(obtenerServiciosSeleccionados()).some(Boolean);
+}
+
+// Sirve para editar y para restaurar el borrador (misma forma de objeto).
+function rellenarFormulario(cancha) {
+  elementos.titulo.value = cancha.titulo;
+  elementos.descripcion.value = cancha.descripcion;
+  elementos.categoria.value = cancha.categoria;
+  elementos.horaInicio.value = cancha.disponibilidad.horaInicio;
+  elementos.horaFin.value = cancha.disponibilidad.horaFin;
+  elementos.capacidad.value = cancha.capacidad || "";
+  elementos.ubicacion.value = cancha.ubicacion;
+  elementos.maps.value = cancha.enlaceMaps;
+  elementos.contadorDescripcion.textContent = cancha.descripcion.length;
+
+  document.querySelectorAll('input[name="dias"]').forEach((checkbox) => {
+    checkbox.checked = cancha.disponibilidad.dias.includes(checkbox.value);
+  });
+  Object.entries(cancha.servicios).forEach(([servicio, incluido]) => {
+    document.getElementById(servicio).checked = incluido;
+  });
+}
+
+function guardarBorrador() {
+  if (idEnEdicion !== null) return; // al editar no se toca el borrador
+  localStorage.setItem(CLAVE_BORRADOR, JSON.stringify(capturarDatosCancha(null)));
+}
+
+function restaurarBorrador() {
+  const borrador = JSON.parse(localStorage.getItem(CLAVE_BORRADOR));
+  if (borrador) rellenarFormulario(borrador);
+}
+
+function repintarCanchas() {
+  listaCanchas.innerHTML = "";
+  canchas.forEach(mostrarCancha);
+  actualizarContador();
+}
+
+async function editarCancha(evento) {
+  if (!evento.target.classList.contains("editar")) return;
+
+  const id = Number(evento.target.dataset.id);
+  const cancha = canchas.find((c) => c.id === id);
+  if (!cancha) return;
+
+  if (idEnEdicion !== null || formularioTieneDatos()) {
+    const respuesta = await Swal.fire({
+      title: "¿Editar esta cancha?",
+      text: "Se descartará lo que llevas escrito en el formulario.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, editar",
+      cancelButtonText: "Cancelar",
+    });
+    if (!respuesta.isConfirmed) return;
+  }
+
+  localStorage.removeItem(CLAVE_BORRADOR);
+  limpiarVistaPrevia();
+  limpiarValidaciones();
+  elementos.imagen.value = "";
+
+  idEnEdicion = id;
+  imagenActual = cancha.imagen;
+  rellenarFormulario(cancha);
+
+  elementos.vistaPrevia.src = cancha.imagen;
+  elementos.vistaPrevia.hidden = false;
+  elementos.placeholderImagen.hidden = true;
+
+  botonSubmit.textContent = "Guardar cambios";
+  form.scrollIntoView({ behavior: "smooth" });
+  elementos.titulo.focus();
+}
+function salirDeEdicion() {
+  idEnEdicion = null;
+  imagenActual = null;
+  botonSubmit.textContent = textoSubmit;
+}
+
+// Todo lo que debe pasar después de form.reset()
+function limpiarTodo() {
+  limpiarVistaPrevia();
+  limpiarValidaciones();
+  salirDeEdicion();
+  localStorage.removeItem(CLAVE_BORRADOR);
+}
+
+function guardarDesdeFormulario(imagenBase64) {
+  if (idEnEdicion === null) {
+    const cancha = capturarDatosCancha(imagenBase64);
+    canchas.push(cancha);
+    vistasPrevias.set(cancha.id, imagenBase64);
+    guardarCancha();
+    mostrarCancha(cancha);
+  } else {
+    const posicion = canchas.findIndex((c) => c.id === idEnEdicion);
+    if (posicion === -1) return;
+    canchas[posicion] = capturarDatosCancha(imagenBase64, idEnEdicion);
+    vistasPrevias.set(idEnEdicion, imagenBase64);
+    guardarCancha();
+    repintarCanchas();
+  }
+
+  actualizarContador();
+  actualizarCatalogoJson();
+  urlImagenSeleccionada = null;
+  form.reset();
+  limpiarTodo();
+}
 form.addEventListener("submit", (evento) => {
   // Evitamos que la página se recargue por defecto al enviar el formulario
   evento.preventDefault();
@@ -417,46 +549,14 @@ form.addEventListener("submit", (evento) => {
   // Con esto obtenemos el archivo de imagen que selecciono el usuario en el input
   const archivo = elementos.imagen.files[0];
   
-  // 4. Creamos un lector de archivos (FileReader) nativo de JavaScript.
-  // esta  parte es obligatorio pues es para convertir la imagen local en un texto largo (Base64) 
-  // y poder guardarla en el localStorage.
-  const lector = new FileReader();
-
-  // Esta funcion se ejecuta automaticamente un segundo despues, cuando 
-  // el lector termina de leer y transformar la imagen a Base64.
-  lector.onload = function (e) {
-    const imagenBase64 = e.target.result; // Aqui ya tenemos la imagen convertida a texto
-    
-    // Se capturan todos los datos del formulario, pasándole la imagen en Base64
-    const cancha = capturarDatosCancha(imagenBase64);
-
-    // Agregamos la nueva cancha al arreglo local y a las vistas previas
-    canchas.push(cancha);
-    vistasPrevias.set(cancha.id, imagenBase64);
-
-    // Guardamos el arreglo completo de canchas en el localStorage del navegador transformandolo a texto JSON.
-    guardarCancha();
-    // Pintamos la tarjeta en pantalla, actualizamos contadores y consola
-    mostrarCancha(cancha);
-    actualizarContador();
-    actualizarCatalogoJson();
-
-    // Limpiamos variables temporales, reseteamos el formulario y borramos validaciones
-    urlImagenSeleccionada = null;
-    form.reset();
-    limpiarVistaPrevia();
-    limpiarValidaciones();
-  };
-
-  // Si el archivo existe, disparamos la lectura para que comience el proceso de FileReader
-  if (archivo) {
-    lector.readAsDataURL(archivo); 
+    if (archivo) {
+    const lector = new FileReader();
+    lector.onload = (e) => guardarDesdeFormulario(e.target.result);
+    lector.readAsDataURL(archivo);
+  } else {
+    guardarDesdeFormulario(imagenActual); // solo pasa al editar sin cambiar la foto
   }
 });
-
-listaCanchas.addEventListener("click",eliminarCancha);
-
-
 
 
 /* form.addEventListener("submit", (evento) => {
@@ -501,18 +601,17 @@ function cargarCanchasGuardadas() {
   actualizarContador();
 }
 
-localStorage.setItem(CLAVE_FORM, JSONstringify(canchas))
-
-// Se ejecuta automáticamente al cargar la pagina de administracion
-document.addEventListener("DOMContentLoaded", () => {
-  cargarCanchasGuardadas();
-localStorage.getItem(CLAVE_CANCHA)
+form.addEventListener("reset", () => {
+  window.setTimeout(limpiarTodo, 0);
 });
 
-form.addEventListener("reset", () => {
-  // Espera a que el navegador restaure los valores por defecto del formulario.
-  window.setTimeout(() => {
-    limpiarVistaPrevia();
-    limpiarValidaciones();
-  }, 0);
+listaCanchas.addEventListener("click", eliminarCancha);
+listaCanchas.addEventListener("click", editarCancha);
+
+form.addEventListener("input", guardarBorrador);
+form.addEventListener("change", guardarBorrador);
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCanchasGuardadas();
+  restaurarBorrador();
 });
