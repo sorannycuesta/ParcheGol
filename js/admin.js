@@ -3,6 +3,8 @@
 // ============================================================
 
 const form = document.getElementById("formCancha");
+const listaCanchas = document.getElementById("listaCanchas");
+const CLAVE_CANCHA = "canchasParcheGol";
 
 // Configuración del horario: cambia estos valores para ajustar
 // el rango permitido de apertura y cierre.
@@ -51,7 +53,7 @@ const elementos = {
 });
 
 // Lista en memoria: aquí se almacenan los registros capturados.
-const canchas = [];
+let canchas = [];
 const vistasPrevias = new Map();
 let urlImagenSeleccionada = null;
 let siguienteId = 1;
@@ -302,9 +304,10 @@ function mostrarCancha(cancha) {
   botonEditar.disabled = true;
   botonEditar.title = "Funcionalidad pendiente para una siguiente etapa";
   const botonEliminar = crearElemento("button", "btn btn-sm btn-outline-danger", "Eliminar");
+  botonEliminar.classList.add("eliminar");
+  botonEliminar.dataset.index = cancha.id;
   botonEliminar.type = "button";
-  botonEliminar.disabled = true;
-  botonEliminar.title = "Funcionalidad pendiente para una siguiente etapa";
+  botonEliminar.title = "Eliminar una entrada del catalogo";
   acciones.append(botonEditar, botonEliminar);
 
   cuerpo.append(encabezado, descripcion, datos, ubicacion, servicios, acciones);
@@ -348,6 +351,34 @@ function limpiarValidaciones() {
   elementos.contadorDescripcion.textContent = "0";
 }
 
+function eliminarCancha(evento) {
+  // Tu código aquí
+  
+  if( !evento.target.classList.contains("eliminar")){
+    return;
+  }else{
+    
+    let idCancha = Number(evento.target.dataset.index);
+
+    console.log(idCancha);
+   
+    canchas.splice(Number(canchas.findIndex(element => element.id == idCancha)),1);
+
+    guardarCancha();
+
+    const encontrarCancha = evento.target.closest(".admin-court-card");
+    encontrarCancha.remove();
+   
+    actualizarContador();
+  }
+
+}
+
+function guardarCancha(){
+
+      localStorage.setItem(CLAVE_CANCHA, JSON.stringify(canchas));
+
+}
 
 form.addEventListener("submit", (evento) => {
   // Evitamos que la página se recargue por defecto al enviar el formulario
@@ -385,8 +416,7 @@ form.addEventListener("submit", (evento) => {
     vistasPrevias.set(cancha.id, imagenBase64);
 
     // Guardamos el arreglo completo de canchas en el localStorage del navegador transformandolo a texto JSON.
-    localStorage.setItem("canchasParcheGol", JSON.stringify(canchas));
-
+    guardarCancha();
     // Pintamos la tarjeta en pantalla, actualizamos contadores y consola
     mostrarCancha(cancha);
     actualizarContador();
@@ -404,6 +434,11 @@ form.addEventListener("submit", (evento) => {
     lector.readAsDataURL(archivo); 
   }
 });
+
+listaCanchas.addEventListener("click",eliminarCancha);
+
+
+
 
 /* form.addEventListener("submit", (evento) => {
   evento.preventDefault();
@@ -436,7 +471,7 @@ form.addEventListener("submit", (evento) => {
 
 // Funcion para cargar las canchas guardadas en el navegador al abrir la página
 function cargarCanchasGuardadas() {
-  const canchasGuardadas = JSON.parse(localStorage.getItem("canchasParcheGol")) || [];
+  const canchasGuardadas = JSON.parse(localStorage.getItem(CLAVE_CANCHA)) || [];
   
   canchasGuardadas.forEach(cancha => {
     canchas.push(cancha);
