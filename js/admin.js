@@ -5,6 +5,8 @@
 const form = document.getElementById("formCancha");
 const listaCanchas = document.getElementById("listaCanchas");
 const CLAVE_CANCHA = "canchasParcheGol";
+const CLAVE_FORM = "formCanchas"
+
 
 // Configuración del horario: cambia estos valores para ajustar
 // el rango permitido de apertura y cierre.
@@ -357,8 +359,21 @@ function eliminarCancha(evento) {
   if( !evento.target.classList.contains("eliminar")){
     return;
   }else{
-    
-    let idCancha = Number(evento.target.dataset.index);
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed){ Swal.fire({
+    title: "Deleted!",
+    text: "Your file has been deleted.",
+    icon: "success"
+  });
+let idCancha = Number(evento.target.dataset.index);
 
     console.log(idCancha);
    
@@ -370,6 +385,10 @@ function eliminarCancha(evento) {
     encontrarCancha.remove();
    
     actualizarContador();
+}
+   
+});
+ 
   }
 
 }
@@ -482,9 +501,12 @@ function cargarCanchasGuardadas() {
   actualizarContador();
 }
 
+localStorage.setItem(CLAVE_FORM, JSONstringify(canchas))
+
 // Se ejecuta automáticamente al cargar la pagina de administracion
 document.addEventListener("DOMContentLoaded", () => {
   cargarCanchasGuardadas();
+localStorage.getItem(CLAVE_CANCHA)
 });
 
 form.addEventListener("reset", () => {
