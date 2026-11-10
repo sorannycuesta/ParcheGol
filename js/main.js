@@ -4,6 +4,8 @@ const LINKS = [
     { href: "index.html",          icono: "fa-house",        label: "Inicio" ,  descripcion: "Vuelve a la página principal"},
     { href: "sobre-nosotros.html", icono: "fa-users-rays",   label: "Sobre nosotros" ,  descripcion: "Conoce más sobre nosotros"},
     { href: "contactanos.html",    icono: "fa-address-book", label: "Contáctanos",  descripcion: "Aquí puedes contactarnos"},
+    // link catalogo 
+    { href: "catalogo.html",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"}
 ];
 
 /* Webcomponent sidebar */
@@ -98,6 +100,8 @@ class AppNavbar extends HTMLElement {
                   <i class="fa-solid fa-circle-info"></i><span>Acerca de nosotros</span></a></li>
                 <li><a class="oc-link" href="contactanos.html" data-page="contactanos.html">
                   <i class="fa-solid fa-envelope"></i><span>Contáctanos</span></a></li>
+                <li><a class="oc-link" href="catalogo.html" data-page="catalogo.html">
+                  <i class="fa-solid fa-futbol"></i><span>Catálogo de canchas</span></a></li>
               </ul>
             </section>
 
@@ -153,6 +157,7 @@ class AppFooter extends HTMLElement {
             <a class="foot-link" href="index.html">Home</a>
             <a class="foot-link" href="sobre-nosotros.html">Acerca de nosotros</a>
             <a class="foot-link" href="contactanos.html">Contactanos</a>
+            <a class="foot-link" href="catalogo.html">Catálogo</a>
           </div>
         </div>
         <div class="col-foot" id="contact">
