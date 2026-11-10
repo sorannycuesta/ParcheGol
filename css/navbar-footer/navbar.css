@@ -170,6 +170,155 @@ body {
     cursor: pointer;
 }
 
+/* ================= navbar ===================================== */
+
+/* ---------- Navbar móvil / tablet ---------- */
+app-navbar{
+    display: contents; /* para que el sticky del header funcione */
+}
+
+.nav-movil{
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: rgba(10, 31, 110, 0.75);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav-movil__bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 1rem;
+}
+
+.nav-movil__brand{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.nav-movil__toggle{
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 0.75rem;
+    color: aliceblue;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-movil__toggle:hover{
+    color: var(--color-2);
+    border-color: var(--color-2);
+}
+
+/* ---------- Offcanvas ---------- */
+.oc-menu{
+    --bs-offcanvas-width: 300px;
+    --bs-offcanvas-bg: rgba(10, 31, 110, 0.85);
+    --bs-offcanvas-color: aliceblue;
+    --bs-offcanvas-border-color: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+.oc-titulo{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 1.25rem;
+    color: aliceblue;
+}
+
+.oc-grupo{
+    margin-bottom: 1.5rem;
+}
+
+.oc-grupo__titulo{
+    margin: 0 0 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-2);
+    opacity: 0.8;
+}
+
+.oc-lista{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.oc-link{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    color: aliceblue;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.oc-link i{
+    width: 1.25rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.oc-link:hover{
+    color: var(--color-2);
+}
+
+.oc-link.active{
+    color: var(--color-2);
+    background-color: rgba(93, 204, 255, 0.12);
+}
+
+.oc-link.active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 3px;
+    border-radius: 3px;
+    background-color: var(--color-2);
+}
+
+/* ---------- Cambio entre navbar y sidebar ---------- */
+@media (min-width: 1024px){
+    .nav-movil,
+    .oc-menu,
+    .offcanvas-backdrop{
+        display: none !important;
+    }
+}
+
+@media (max-width: 1023.98px){
+    app-sidebar{
+        display: none;
+    }
+    /* reserva el espacio mientras carga el componente (evita el salto) */
+    app-navbar:not(:defined){
+        display: block;
+        min-height: 64px;
+    }
+}
+
+
 /* Mostrar con mouse, solo en dispositivos que tengan hover */
 @media (hover: hover) {
     .link_nav:hover::before {
@@ -181,3 +330,6 @@ body {
     from { opacity: 0; translate: var(--desde, -20px 0); }
     to   { opacity: 1; translate: 0 0; }
 }
+
+
+
