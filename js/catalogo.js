@@ -16,7 +16,7 @@ function cargarCatalogoPublico() {
   if (canchasGuardadas.length === 0) {
     contenedorCatalogo.innerHTML = "";
     if (estadoVacio) estadoVacio.style.display = "block";
-    return;
+      return;
   }
 
   if (estadoVacio) estadoVacio.style.display = "none";

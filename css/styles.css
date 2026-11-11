@@ -1,0 +1,129 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--altura-navbar);
+    background-color: var(--fondo-noche);
+    /* evita destellos blancos al hacer scroll rápido */
+}
+
+#inicio {
+    background-image: url("../img/messi.jpg");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+body {
+    background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 78%);
+}
+
+/*acá tocó usar el important porque no quería coger por el bootstrap */
+
+#buscador .card {
+    background-color: rgba(138, 143, 150, 0.75) !important;
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+#buscador {
+    color: #ffffff;
+}
+
+/* acá igual se usó el important por el bootstrap*/
+
+#buscador .text-secondary {
+    color: #adb5bd !important;
+    
+}
+
+.btn-buscar:hover {
+    background-color: #030158 80%;
+    border-color: #0a1f6e;
+    color: #000000;
+
+}
+
+
+#buscador p,
+#buscador label[for="fecha"],
+#buscador label[for="hora"] {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #f1fafd;
+}
+
+#buscador .card-body p {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05rem;
+}
+
+.beneficios {
+    background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 78%);
+
+}
+
+/* acá igual*/
+
+.card-body1 {
+    background-color: rgb(10, 10, 88);
+    color: #24b0f1;
+    border-radius: 4%;
+    transition: transform 0.3s ease, box-shadow 0.3 ease;
+    border: 1px solid #0dcaf0 !important;
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    color: #1395e0;
+}
+
+.card-body1:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+.container p {
+    font-size: 1.2rem;
+}
+
+/* acá igual*/
+#beneficios .card {
+    border: 1px solid #0dcaf0 !important;
+    background-color: transparent !important;
+}
+
+#beneficios .card-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.card {
+    background-color: rgb(10, 10, 88);
+    transition: .3 ease;
+}
+
+.card:hover {
+    transform: scale(1.02)
+}
+
+
+.card-rejilla {
+    background-color: rgb(10, 10, 88);
+    transition: .3 ease;
+}
+
+.card-rejilla:hover {
+    transform: scale(1.03);
+    
+}
+
+
+
+.lead {
+  font-size: 1.3rem ;
+  font-weight: 500 ;   
+  color: #ffffff ;    
+}
