@@ -4,8 +4,9 @@ const LINKS = [
     { href: "index.html",          icono: "fa-house",        label: "Inicio" ,  descripcion: "Vuelve a la página principal"},
     { href: "sobre-nosotros.html", icono: "fa-users-rays",   label: "Sobre nosotros" ,  descripcion: "Conoce más sobre nosotros"},
     { href: "contactanos.html",    icono: "fa-address-book", label: "Contáctanos",  descripcion: "Aquí puedes contactarnos"},
+    { href: "admin.html",          icono:  "fa-solid fa-user-tie", label: "Admin", descripcion: "Formulario gestión de canchas"},
     // link catalogo 
-    { href: "catalogo.html",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"}
+    { href: "index.html#listadoCanchas",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"}
 ];
 
 /* Webcomponent sidebar */
