@@ -20,7 +20,7 @@
   <script src="https://kit.fontawesome.com/2b9c7542e8.js" crossorigin="anonymous"></script>
   <script src="js/main.js" defer></script>
   <script src="js/admin.js" defer></script>
-  <script src="js/reserva.js" defer></script>
+
 </head>
 
 <body>
@@ -85,8 +85,11 @@
 
                 <!-- Fecha -->
                 <div class="mb-3">
-                  <label class="form-label text-muted small fw-semibold">Fecha de reserva</label>
-                  <input type="date" class="form-control" id="fechaInput" required>
+                  <label for="fechaInput" class="form-label">
+                    Fecha de reserva
+                  </label>
+
+                  <input type="date" class="form-control" id="fechaInput" name="fecha" required>
                 </div>
 
                 <!-- Horario reserva -->
@@ -116,8 +119,8 @@
                 </button>
 
                 <!-- Limpiar form -->
-                <button type="reset" class="btn btn-link w-100 text-muted text-decoration-none btn-sm text-center">
-                  Limpiar formulario
+                <button type="reset" class="btn btn-link w-100 text-success text-decoration-none btn-sm text-center">
+                 <span> Limpiar formulario </span>
                 </button>
               </form>
 
@@ -133,23 +136,28 @@
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <span class="text-uppercase text-muted fw-bold tracking-wider" style="font-size: 0.68rem;">Tus
                   Reservas</span>
-                <span class="badge bg-secondary bg-opacity-50 text-light rounded-pill px-3" id="contadorReservas">0
-                  reservas</span>
+                <span class="badge bg-secondary bg-opacity-50 text-light rounded-pill px-3"
+                  id="contadorReservas">Reservas</span>
               </div>
               <h5 class="fw-bold mb-1">Reservas registradas</h5>
               <p class="text-muted small mb-4">Tus reservas registradas apareceran en este listado.</p>
 
               <!-- Espacio donde visualiza el cliente sus reservas -->
-              <div class="my-auto py-5 text-center" id="emptyState">
-                <div class="mb-3 opacity-50">
+              <div class="my-auto py-3" id="emptyState">
+
+                <div class="mb-3 opacity-50 text-center">
                   <i class="bi bi-calendar-x display-4 text-muted"></i>
                 </div>
-                <h6 class="fw-bold text-light">Aún no tienes reservas registradas</h6>
+
+                <div id="listaReservas" class="lista-reservas">
+                </div>
 
               </div>
             </div>
           </div>
         </div>
+
+
       </div>
 
     </main>
