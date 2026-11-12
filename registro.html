@@ -35,30 +35,94 @@
                         <p class="text-muted">Regístrate para reservar tu cancha</p>
                     </div>
                     <!--Formulario pal registro-->
-                    <form id="formRegistro">
-                        <div class="mb-3">
+                    <form id="formRegistro" novalidate>
+                        <div class="admin-field mb-3">
                             <label for="nombre" class="form-label">Nombre Completo</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre Completo"
                                 required>
+                            <div class="valid-feedback">Nombre válido.</div>
+                            <div class="invalid-feedback">Ingresa un nombre válido (mínimo 3 caracteres).</div>
                         </div>
-                        <div class="mb-3">
+                        <div class="admin-field mb-3">
                             <label for="telefono" class="form-label">Número de télefono</label>
                             <input type="tel" class="form-control" id="telefono"
                                 placeholder="Ingresa tu número de télefono" required>
+                            <div class="valid-feedback">Número válido.</div>
+                            <div class="invalid-feedback">Ingresa un número valido (mínimo 10 digitos).</div>
                         </div>
-                        <div class="mb-3">
+                        <div class="admin-field mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" placeholder="ejemplo@correo.com"
                                 required>
+                            <div class="valid-feedback">Correo válido.</div>
+                            <div class="invalid-feedback">Ingresa un correo electrónico valido.</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Crea una contraseña"
-                                required>
+                        <!-- Campo Contraseña con botón de ojo integrado -->
+                        <div class="admin-field mb-3">
+                            <label for="password" class="form-label admin-form-label">Contraseña</label>
+
+                            <div class="input-group password-input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+                                <input type="password" class="form-control border-start-0 border-end-0 ps-1"
+                                    id="password" name="password" placeholder="Crea una contraseña segura"
+                                    autocomplete="new-password" required>
+                                <button class="btn btn-eye border-start-0" type="button" id="togglePassword"
+                                    aria-label="Mostrar u ocultar contraseña" title="Mostrar contraseña">
+                                    <i class="bi bi-eye" id="iconoOjo"></i>
+                                </button>
+                            </div>
+
+                            <!-- Tarjeta visual de progreso y requisitos -->
+                            <div class="password-strength-box mt-2">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="strength-label">Nivel de seguridad</span>
+                                    <span id="textoFortaleza" class="strength-badge badge-weak">Sin definir</span>
+                                </div>
+
+                                <div class="progress strength-progress" role="progressbar"
+                                    aria-label="Seguridad de contraseña">
+                                    <div id="barraProgreso" class="progress-bar" style="width: 0%;"></div>
+                                </div>
+
+                                <ul class="password-checklist list-unstyled mb-0 mt-2" id="listaRequisitos">
+                                    <li id="req-largo"><i class="bi bi-circle"></i><span>Mínimo 8 caracteres</span></li>
+                                    <li id="req-mayuscula"><i class="bi bi-circle"></i><span>Una mayúscula (A-Z)</span>
+                                    </li>
+                                    <li id="req-minuscula"><i class="bi bi-circle"></i><span>Una minúscula (a-z)</span>
+                                    </li>
+                                    <li id="req-numero"><i class="bi bi-circle"></i><span>Un número (0-9)</span></li>
+                                    <li id="req-simbolo" class="req-full"><i class="bi bi-circle"></i><span>Un símbolo
+                                            especial (@$!%*?&.#_-)</span></li>
+                                </ul>
+                            </div>
+
+                            <div class="valid-feedback">¡Contraseña fuerte y lista!</div>
+                            <div class="invalid-feedback">Completa todos los requisitos de la lista superior.</div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            Crear cuenta
-                        </button>
+
+                        <!-- Campo Confirmar Contraseña -->
+                        <div class="admin-field mb-4">
+                            <label for="confirmarPassword" class="form-label admin-form-label">Confirmar
+                                contraseña</label>
+                            <div class="input-group password-input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted">
+                                    <i class="bi bi-shield-check"></i>
+                                </span>
+                                <input type="password" class="form-control border-start-0 ps-1" id="confirmarPassword"
+                                    name="confirmarPassword" placeholder="Repite tu contraseña"
+                                    autocomplete="new-password" required>
+                            </div>
+                            <div class="valid-feedback">Las contraseñas coinciden.</div>
+                            <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn admin-submit-btn">
+                                <i class="bi bi-check2-circle me-2"></i>Guardar contraseña
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -68,6 +132,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src=""></script>
 
+</body>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/registro.js"></script>
 </body>
 
 </html>
