@@ -1,0 +1,154 @@
+/* ============================================================
+   ESTILOS DE VALIDACIÓN DE CONTRASEÑA - PARCHEGOL
+   ============================================================ */
+
+/* Input group unificado y limpio */
+.password-input-group .input-group-text,
+.password-input-group .form-control,
+.password-input-group .btn-eye {
+  border-color: #cbd5e1;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.password-input-group .form-control:focus {
+  box-shadow: none;
+  border-color: #16a34a;
+}
+
+/* Ilumina todo el grupo cuando el input tiene foco */
+.password-input-group:focus-within {
+  border-radius: 0.375rem;
+  box-shadow: 0 0 0 0.22rem rgba(22, 163, 74, 0.16);
+}
+
+.password-input-group:focus-within .input-group-text,
+.password-input-group:focus-within .form-control,
+.password-input-group:focus-within .btn-eye {
+  border-color: #16a34a;
+}
+
+/* Estados de validación en input-group */
+.password-input-group:has(.form-control.is-invalid) .input-group-text,
+.password-input-group:has(.form-control.is-invalid) .form-control,
+.password-input-group:has(.form-control.is-invalid) .btn-eye {
+  border-color: #dc3545;
+}
+
+.password-input-group:has(.form-control.is-valid) .input-group-text,
+.password-input-group:has(.form-control.is-valid) .form-control,
+.password-input-group:has(.form-control.is-valid) .btn-eye {
+  border-color: #198754;
+}
+
+/* Botón del ojo */
+.btn-eye {
+  background-color: #ffffff;
+  color: #64748b;
+  padding-inline: 0.85rem;
+}
+
+.btn-eye:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Tarjeta contenedora del progreso */
+.password-strength-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65rem;
+  padding: 0.85rem 1rem;
+}
+
+.strength-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Píldora de estado (Débil / Media / Fuerte) */
+.strength-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  transition: all 0.25s ease;
+}
+
+.badge-neutral {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.badge-weak {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-medium {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-strong {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+/* Barra de progreso delgada y animada */
+.strength-progress {
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.strength-progress .progress-bar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  border-radius: 999px;
+}
+
+/* Grid de 2 columnas para los requisitos */
+.password-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.password-checklist .req-full {
+  grid-column: 1 / -1;
+}
+
+.password-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #64748b;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.password-checklist li i {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Estado cuando un requisito se cumple */
+.password-checklist li.cumplido {
+  color: #15803d;
+  font-weight: 500;
+}
+
+.password-checklist li.cumplido i {
+  color: #16a34a;
+  transform: scale(1.1);
+}
+
+/* En móviles muy pequeños pasa a 1 columna */
+@media (max-width: 420px) {
+  .password-checklist {
+    grid-template-columns: 1fr;
+  }
+}

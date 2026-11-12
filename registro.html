@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/registro.css">
+    
+</head>
+<body>
+<form id="formRegistro" novalidate>
+  <!-- Campo Contraseña con botón de ojo integrado -->
+  <div class="admin-field mb-3">
+    <label for="password" class="form-label admin-form-label">Contraseña</label>
+    
+    <div class="input-group password-input-group">
+      <span class="input-group-text bg-white border-end-0 text-muted">
+        <i class="bi bi-lock"></i>
+      </span>
+      <input 
+        type="password" 
+        class="form-control border-start-0 border-end-0 ps-1" 
+        id="password" 
+        name="password" 
+        placeholder="Crea una contraseña segura" 
+        autocomplete="new-password" 
+        required
+      >
+      <button 
+        class="btn btn-eye border-start-0" 
+        type="button" 
+        id="togglePassword" 
+        aria-label="Mostrar u ocultar contraseña"
+        title="Mostrar contraseña"
+      >
+        <i class="bi bi-eye" id="iconoOjo"></i>
+      </button>
+    </div>
+
+    <!-- Tarjeta visual de progreso y requisitos -->
+    <div class="password-strength-box mt-2">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <span class="strength-label">Nivel de seguridad</span>
+        <span id="textoFortaleza" class="strength-badge badge-weak">Sin definir</span>
+      </div>
+
+      <div class="progress strength-progress" role="progressbar" aria-label="Seguridad de contraseña">
+        <div id="barraProgreso" class="progress-bar" style="width: 0%;"></div>
+      </div>
+
+      <ul class="password-checklist list-unstyled mb-0 mt-2" id="listaRequisitos">
+        <li id="req-largo"><i class="bi bi-circle"></i><span>Mínimo 8 caracteres</span></li>
+        <li id="req-mayuscula"><i class="bi bi-circle"></i><span>Una mayúscula (A-Z)</span></li>
+        <li id="req-minuscula"><i class="bi bi-circle"></i><span>Una minúscula (a-z)</span></li>
+        <li id="req-numero"><i class="bi bi-circle"></i><span>Un número (0-9)</span></li>
+        <li id="req-simbolo" class="req-full"><i class="bi bi-circle"></i><span>Un símbolo especial (@$!%*?&.#_-)</span></li>
+      </ul>
+    </div>
+
+    <div class="valid-feedback">¡Contraseña fuerte y lista!</div>
+    <div class="invalid-feedback">Completa todos los requisitos de la lista superior.</div>
+  </div>
+
+  <!-- Campo Confirmar Contraseña -->
+  <div class="admin-field mb-4">
+    <label for="confirmarPassword" class="form-label admin-form-label">Confirmar contraseña</label>
+    <div class="input-group password-input-group">
+      <span class="input-group-text bg-white border-end-0 text-muted">
+        <i class="bi bi-shield-check"></i>
+      </span>
+      <input 
+        type="password" 
+        class="form-control border-start-0 ps-1" 
+        id="confirmarPassword" 
+        name="confirmarPassword" 
+        placeholder="Repite tu contraseña" 
+        autocomplete="new-password" 
+        required
+      >
+    </div>
+    <div class="valid-feedback">Las contraseñas coinciden.</div>
+    <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn admin-submit-btn">
+      <i class="bi bi-check2-circle me-2"></i>Guardar contraseña
+    </button>
+  </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/validacionContra.js"></script>
+</body>
+</html>
