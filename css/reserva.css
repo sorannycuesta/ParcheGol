@@ -1,49 +1,96 @@
-body {
-    background: linear-gradient(90deg,rgba(0, 0, 0, 1) 48%, rgba(17, 64, 25, 1) 82%);
-    color: #f7f8f5;
-    font-family:  var(--admin-font-text);
+:root {
+    --admin-blue: #1B264F;
+    --admin-blue-dark: #121B3D;
+    --admin-cyan: #A2C5AC;
+    --admin-accent: #9DB5B2;
+
+    --admin-text: #D3D5D4;
+    --admin-muted: #878E99;
+    --admin-border: rgba(157, 181, 178, 0.3);
+    --admin-soft: rgba(135, 142, 153, 0.12);
+
     --admin-font-title: "Bricolage Grotesque", sans-serif;
+    --admin-font-text: "Plus Jakarta Sans", sans-serif;
 }
+
+
 
 
 html {
     scroll-behavior: smooth;
-
 }
 
-.card {
-    background: rgba(70, 134, 89, 0.301);
-    backdrop-filter: blur(58px);
-    -webkit-backdrop-filter: blur(58px);
-    border: 3px solid rgba(2, 255, 56, 0.493);
+body {
+    background: linear-gradient(
+        90deg,
+        #121B3D 25%,
+        #1B264F 75%,
+        #263C48 100%
+    );
+
+    color: var(--admin-text);
     font-family: var(--admin-font-text);
 }
+
+
+
+.card {
+    background: rgba(27, 38, 79, 0.55);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+    font-family: var(--admin-font-text);
+}
+
+
+
 
 .form-control,
 .form-select,
 .input-group-text {
-    background-color: #f2fdf8 !important;
-    border-color: #295e41 !important;
-    color: #050505 !important;
+    background-color: rgba(211, 213, 212, 0.95) !important;
+    border: 1px solid var(--admin-border) !important;
+    color: #121B3D !important;
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #0e6315 !important;
-    box-shadow: 0 0 0 0.25rem rgba(66, 170, 135, 0.25) !important;
+    border-color: var(--admin-cyan) !important;
+
+    box-shadow: 0 0 0 0.25rem
+        rgba(162, 197, 172, 0.25) !important;
 }
 
+
+
 .btn-neon {
-    background-color: rgba(13, 117, 60, 0.767)!important;
-    color: white;
-    font-weight: 600;
-    border: rgb(6, 158, 6);
+    background-color: rgba(162, 197, 172, 0.85) !important;
+    color: var(--admin-blue-dark);
+
+    font-weight: 700;
+    border: 1px solid var(--admin-cyan);
+
+    transition: all 0.3s ease;
 }
 
 .btn-neon:hover {
-    background: linear-gradient(90deg,rgba(0, 0, 0, 1) 25%, rgba(10, 163, 35, 1) 80%) !important;
-    color: #fcf5f5;
+    background: linear-gradient(
+        90deg,
+        var(--admin-blue-dark) 25%,
+        #527D70 80%
+    ) !important;
+
+    color: #ffffff;
+    border-color: var(--admin-cyan);
 }
+
+
+
 
 .main-wrapper {
     margin-left: 48px;
@@ -53,8 +100,174 @@ html {
     letter-spacing: 0.1em;
 }
 
-h2{
+h2 {
     font-family: var(--admin-font-title);
+    color: var(--admin-cyan);
 }
+
+
+
+.lista-reservas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+
+
+input[type="date"] {
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+    color-scheme: light;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 1;
+}
+
+
+
+
+.tarjeta {
+    width: 100%;
+    padding: 24px;
+    border-radius: 18px;
+
+    background: rgba(157, 181, 178, 0.10);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border: 1px solid rgba(162, 197, 172, 0.25);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+    box-sizing: border-box;
+    color: var(--admin-text);
+
+    transition: all 0.35s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+
+    background: rgba(157, 181, 178, 0.17);
+
+    border-color: rgba(162, 197, 172, 0.55);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.30),
+        0 0 18px rgba(162, 197, 172, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+
+
+
+.tarjeta p {
+    color: var(--admin-text);
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+}
+
+
+
+.tarjeta .cancha {
+    color: var(--admin-cyan);
+
+    font-size: 19px;
+    font-weight: 700;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid var(--admin-border);
+}
+
+
+
+.tarjeta .nombresuario,
+.tarjeta .telefono,
+.tarjeta .fecha,
+.tarjeta .horainicio,
+.tarjeta .duracion {
+    color: var(--admin-text);
+}
+
+
+.tarjeta > p:not(.cancha):not(.nombresuario):not(.telefono):not(.fecha):not(.horainicio):not(.duracion) {
+    color: var(--admin-cyan);
+
+    font-size: 21px;
+    font-weight: 700;
+
+    padding-top: 12px;
+    border-top: 1px solid var(--admin-border);
+
+    margin-top: 18px;
+}
+
+
+.botonEliminar {
+    background-color: rgba(162, 197, 172, 0.85) !important;
+
+    color: var(--admin-blue-dark);
+
+    font-weight: 600;
+
+    border: 1px solid var(--admin-cyan);
+
+    padding: 9px 16px;
+    border-radius: 9px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botonEliminar:hover {
+    background: linear-gradient(
+        90deg,
+        var(--admin-blue-dark) 25%,
+        #527D70 80%
+    ) !important;
+
+    color: #ffffff;
+}
+
+.tarjeta .botonEliminar {
+    width: 100%;
+    margin-top: 8px;
+}
+
+
+
+@media (max-width: 600px) {
+
+    .lista-reservas {
+        grid-template-columns: 1fr;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    .tarjeta {
+        padding: 18px;
+    }
+}
+
+
 
 
