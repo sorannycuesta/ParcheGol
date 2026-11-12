@@ -1,121 +1,337 @@
-/* ============================================================
-   ESTILOS DE VALIDACIÓN DE CONTRASEÑA - PARCHEGOL
-   ============================================================ */
+/* ==========================================================
+   ParcheGol | Vista de registro
+   Guardar como: css/registro.css
+   Tema azul marino + verde salvia (misma paleta del panel de
+   administración). Incluye los estilos del validador de
+   contraseña. Funciona con el HTML y el registro.js actuales,
+   sin tocarlos.
+   ========================================================== */
 
-/* Input group unificado y limpio */
-.password-input-group .input-group-text,
-.password-input-group .form-control,
-.password-input-group .btn-eye {
-  border-color: #cbd5e1;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+:root {
+  /* Paleta del panel de administración */
+  --admin-blue: #1B264F;
+  --admin-blue-dark: #121B3D;
+  --admin-cyan: #A2C5AC;
+  --admin-accent: #9DB5B2;
+
+  --admin-text: #D3D5D4;
+  --admin-muted: #878E99;
+  --admin-border: rgba(157, 181, 178, 0.3);
+  --admin-soft: rgba(135, 142, 153, 0.12);
+
+  --admin-font-title: "Bricolage Grotesque", sans-serif;
+  --admin-font-text: "Plus Jakarta Sans", sans-serif;
+
+  /* Derivados para este formulario */
+  --pg-fondo: linear-gradient(160deg, #121B3D 0%, #1B264F 55%, #1B264F 100%);
+  --pg-glass: rgba(60, 76, 142, .32);        /* panel un poco más claro que el fondo */
+  --pg-glass-blur: blur(58px);
+  --pg-campo: rgba(18, 27, 61, .6);          /* fondo de los inputs */
+  --pg-autofill: #1a244c;                    /* opaco: tapa el fondo claro del autocompletado de Chrome */
+  --pg-foco: rgba(162, 197, 172, .28);
+  --pg-salvia-claro: #C5E0CD;
+  --pg-salvia-profundo: #4f6f69;
+  --pg-ok: #8fd9a8;
+  --pg-error: #f4978f;
+  --pg-aviso: #e8c97d;
 }
 
-.password-input-group .form-control:focus {
+/* ---------- Fondo de la página ---------- */
+body {
+  font-family: var(--admin-font-text);
+  color: var(--admin-text);
+  background: var(--pg-fondo);
+  background-attachment: fixed;
+}
+
+section.container {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* ---------- Tarjeta del formulario (glass) ---------- */
+/* Incluye .card-bady porque así está escrito en el HTML */
+.card-bady,
+.card-body {
+  background: var(--pg-glass);
+  -webkit-backdrop-filter: var(--pg-glass-blur);
+  backdrop-filter: var(--pg-glass-blur);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: 0 10px 34px rgba(8, 12, 32, .5);
+}
+
+/* ---------- Encabezado ---------- */
+.card-bady h2,
+.card-body h2 {
+  font-family: var(--admin-font-title);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: -.02em;
+  color: var(--admin-text);
+  margin-bottom: .25rem;
+}
+
+.card-bady h4,
+.card-body h4 {
+  font-family: var(--admin-font-title);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--admin-text);
+  margin-bottom: .35rem;
+}
+
+.card-bady .text-muted,
+.card-body .text-muted {
+  color: var(--admin-muted) !important;
+  font-size: .95rem;
+}
+
+/* ---------- Campos ---------- */
+:is(.card-bady, .card-body) .form-label {
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--admin-text);
+  margin-bottom: .4rem;
+}
+
+:is(.card-bady, .card-body) .form-control {
+  font-family: var(--admin-font-text);
+  padding: .7rem .85rem;
+  background-color: var(--pg-campo);
+  border: 1.5px solid var(--admin-border);
+  border-radius: 10px;
+  color: var(--admin-text);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+:is(.card-bady, .card-body) .form-control::placeholder {
+  color: var(--admin-muted);
+}
+
+:is(.card-bady, .card-body) .form-control:focus {
+  background-color: rgba(18, 27, 61, .8);
+  color: var(--admin-text);
+  border-color: var(--admin-cyan);
+  box-shadow: 0 0 0 .25rem var(--pg-foco);
+}
+
+/* Autocompletado y sugerencia de contraseña de Chrome: pinta su propio
+   fondo claro, así que lo tapamos con un color OPACO (si es translúcido
+   se ve el fondo de Chrome por debajo). El !important evita que otras
+   reglas de box-shadow (foco, validación, grupo de contraseña) lo anulen. */
+:is(.card-bady, .card-body) .form-control:-webkit-autofill,
+:is(.card-bady, .card-body) .form-control:-webkit-autofill:hover,
+:is(.card-bady, .card-body) .form-control:-webkit-autofill:focus,
+:is(.card-bady, .card-body) .form-control:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--admin-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--pg-autofill) inset !important;
+  box-shadow: 0 0 0 1000px var(--pg-autofill) inset !important;
+  caret-color: var(--admin-text);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Estados de validación (clases is-valid / is-invalid que pone el JS) */
+:is(.card-bady, .card-body) .form-control.is-invalid,
+:is(.card-bady, .card-body) .form-control.invalido {
+  border-color: var(--pg-error);
+  background-image: none;
+  padding-right: .85rem;
+}
+
+:is(.card-bady, .card-body) .form-control.is-valid,
+:is(.card-bady, .card-body) .form-control.valido {
+  border-color: var(--pg-ok);
+  background-image: none;
+  padding-right: .85rem;
+}
+
+:is(.card-bady, .card-body) .form-control.is-invalid:focus,
+:is(.card-bady, .card-body) .form-control.invalido:focus {
+  box-shadow: 0 0 0 .25rem rgba(244, 151, 143, .25);
+}
+
+:is(.card-bady, .card-body) .form-control.is-valid:focus,
+:is(.card-bady, .card-body) .form-control.valido:focus {
+  box-shadow: 0 0 0 .25rem rgba(143, 217, 168, .22);
+}
+
+/* Mensajes de ayuda (el JS les agrega d-block para mostrarlos) */
+:is(.card-bady, .card-body) .valid-feedback {
+  color: var(--pg-ok);
+  font-size: .82rem;
+  margin-top: .3rem;
+}
+
+:is(.card-bady, .card-body) .invalid-feedback,
+.error {
+  color: var(--pg-error);
+  font-size: .82rem;
+  margin-top: .3rem;
+}
+
+/* ---------- Grupo de contraseña (candado + input + ojo) ---------- */
+:is(.card-bady, .card-body) .password-input-group {
+  border-radius: 10px;
+  transition: box-shadow .15s ease;
+}
+
+/* El HTML trae bg-white y text-muted de Bootstrap (con !important),
+   por eso el candado necesita !important para entrar al tema oscuro */
+:is(.card-bady, .card-body) .password-input-group .input-group-text {
+  background-color: var(--pg-campo) !important;
+  color: var(--admin-muted) !important;
+  border-width: 1.5px;
+  padding-inline: .85rem;
+}
+
+:is(.card-bady, .card-body) .password-input-group .input-group-text,
+:is(.card-bady, .card-body) .password-input-group .form-control,
+:is(.card-bady, .card-body) .password-input-group .btn-eye {
+  border-color: var(--admin-border);
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+
+/* Esquinas redondeadas solo en los extremos del grupo */
+:is(.card-bady, .card-body) .password-input-group > :first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+:is(.card-bady, .card-body) .password-input-group > :last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* El brillo se pone en todo el grupo, no solo en el input */
+:is(.card-bady, .card-body) .password-input-group .form-control:focus {
   box-shadow: none;
-  border-color: #16a34a;
+  border-color: var(--admin-cyan);
 }
 
-/* Ilumina todo el grupo cuando el input tiene foco */
-.password-input-group:focus-within {
-  border-radius: 0.375rem;
-  box-shadow: 0 0 0 0.22rem rgba(22, 163, 74, 0.16);
+:is(.card-bady, .card-body) .password-input-group:focus-within {
+  box-shadow: 0 0 0 .25rem var(--pg-foco);
 }
 
-.password-input-group:focus-within .input-group-text,
-.password-input-group:focus-within .form-control,
-.password-input-group:focus-within .btn-eye {
-  border-color: #16a34a;
+:is(.card-bady, .card-body) .password-input-group:focus-within > * {
+  border-color: var(--admin-cyan);
 }
 
-/* Estados de validación en input-group */
-.password-input-group:has(.form-control.is-invalid) .input-group-text,
-.password-input-group:has(.form-control.is-invalid) .form-control,
-.password-input-group:has(.form-control.is-invalid) .btn-eye {
-  border-color: #dc3545;
+/* Estados de validación en todo el grupo */
+:is(.card-bady, .card-body) .password-input-group:has(.form-control.is-invalid) > * {
+  border-color: var(--pg-error);
 }
 
-.password-input-group:has(.form-control.is-valid) .input-group-text,
-.password-input-group:has(.form-control.is-valid) .form-control,
-.password-input-group:has(.form-control.is-valid) .btn-eye {
-  border-color: #198754;
+:is(.card-bady, .card-body) .password-input-group:has(.form-control.is-valid) > * {
+  border-color: var(--pg-ok);
+}
+
+:is(.card-bady, .card-body) .password-input-group:has(.form-control.is-invalid):focus-within {
+  box-shadow: 0 0 0 .25rem rgba(244, 151, 143, .25);
+}
+
+:is(.card-bady, .card-body) .password-input-group:has(.form-control.is-valid):focus-within {
+  box-shadow: 0 0 0 .25rem rgba(143, 217, 168, .22);
 }
 
 /* Botón del ojo */
-.btn-eye {
-  background-color: #ffffff;
-  color: #64748b;
-  padding-inline: 0.85rem;
+:is(.card-bady, .card-body) .btn.btn-eye {
+  background-color: var(--pg-campo);
+  color: var(--admin-muted);
+  padding-inline: .9rem;
 }
 
-.btn-eye:hover {
-  background-color: #f8fafc;
-  color: #0f172a;
+:is(.card-bady, .card-body) .btn.btn-eye:hover,
+:is(.card-bady, .card-body) .btn.btn-eye:active {
+  background-color: rgba(18, 27, 61, .85);
+  color: var(--admin-cyan);
 }
 
-/* Tarjeta contenedora del progreso */
+:is(.card-bady, .card-body) .btn.btn-eye:focus-visible {
+  outline: 0;
+  box-shadow: none;
+  color: var(--admin-cyan);
+}
+
+/* ---------- Medidor de seguridad ---------- */
 .password-strength-box {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.65rem;
-  padding: 0.85rem 1rem;
+  background-color: rgba(18, 27, 61, .45);
+  border: 1px solid var(--admin-border);
+  border-radius: .65rem;
+  padding: .85rem 1rem;
 }
 
 .strength-label {
-  font-size: 0.78rem;
+  font-size: .78rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--admin-cyan);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: .06em;
 }
 
-/* Píldora de estado (Débil / Media / Fuerte) */
+/* Píldora de estado (Sin definir / Débil / Media / Fuerte) */
 .strength-badge {
-  font-size: 0.75rem;
+  font-size: .75rem;
   font-weight: 600;
-  padding: 0.15rem 0.6rem;
+  padding: .15rem .6rem;
   border-radius: 999px;
-  transition: all 0.25s ease;
+  transition: all .25s ease;
 }
 
 .badge-neutral {
-  background-color: #e2e8f0;
-  color: #475569;
+  background-color: var(--admin-soft);
+  color: var(--admin-muted);
 }
 
 .badge-weak {
-  background-color: #fee2e2;
-  color: #b91c1c;
+  background-color: rgba(244, 151, 143, .16);
+  color: var(--pg-error);
 }
 
 .badge-medium {
-  background-color: #fef3c7;
-  color: #b45309;
+  background-color: rgba(232, 201, 125, .16);
+  color: var(--pg-aviso);
 }
 
 .badge-strong {
-  background-color: #dcfce7;
-  color: #15803d;
+  background-color: rgba(143, 217, 168, .16);
+  color: var(--pg-ok);
 }
 
-/* Barra de progreso delgada y animada */
+/* Barra de progreso delgada y animada.
+   El JS le pone bg-danger / bg-warning / bg-success de Bootstrap */
 .strength-progress {
   height: 6px;
-  background-color: #e2e8f0;
+  background-color: rgba(135, 142, 153, .25);
   border-radius: 999px;
   overflow: hidden;
 }
 
 .strength-progress .progress-bar {
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  transition: width .3s cubic-bezier(.4, 0, .2, 1), background-color .3s ease;
   border-radius: 999px;
 }
 
-/* Grid de 2 columnas para los requisitos */
+.strength-progress .progress-bar.bg-danger {
+  background-color: var(--pg-error) !important;
+}
+
+.strength-progress .progress-bar.bg-warning {
+  background-color: var(--pg-aviso) !important;
+}
+
+.strength-progress .progress-bar.bg-success {
+  background-color: var(--pg-ok) !important;
+}
+
+/* ---------- Lista de requisitos ---------- */
 .password-checklist {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.4rem 0.75rem;
-  font-size: 0.82rem;
+  gap: .4rem .75rem;
+  font-size: .82rem;
 }
 
 .password-checklist .req-full {
@@ -125,30 +341,130 @@
 .password-checklist li {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  color: #64748b;
-  transition: color 0.2s ease, transform 0.2s ease;
+  gap: .45rem;
+  color: var(--admin-muted);
+  transition: color .2s ease;
 }
 
 .password-checklist li i {
-  font-size: 0.85rem;
-  transition: transform 0.2s ease, color 0.2s ease;
+  font-size: .85rem;
+  transition: transform .2s ease, color .2s ease;
 }
 
-/* Estado cuando un requisito se cumple */
+/* Requisito cumplido */
 .password-checklist li.cumplido {
-  color: #15803d;
+  color: var(--pg-ok);
   font-weight: 500;
 }
 
 .password-checklist li.cumplido i {
-  color: #16a34a;
+  color: var(--pg-ok);
   transform: scale(1.1);
 }
 
-/* En móviles muy pequeños pasa a 1 columna */
+/* ---------- Botón de envío: salvia con texto oscuro, hover con gradient ---------- */
+/* Cubre .admin-submit-btn (el del HTML actual) y .btn-primary.
+   Base: gradient salvia con texto azul oscuro (buen contraste, es la acción principal).
+   Hover: gradient azul oscuro -> salvia profundo, con texto claro.
+   Los gradients no se animan directo, así que el hover va en un ::before con opacity. */
+:is(.card-bady, .card-body) .btn.admin-submit-btn,
+:is(.card-bady, .card-body) .btn.btn-primary {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  font-family: var(--admin-font-text);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: .75rem 1rem;
+  margin-top: .5rem;
+  border: 0;
+  border-radius: 10px;
+  color: var(--admin-blue-dark);
+  background: linear-gradient(90deg, var(--admin-cyan) 0%, var(--admin-accent) 100%);
+  box-shadow: 0 6px 20px rgba(8, 12, 32, .4);
+  transition: color .25s ease, box-shadow .25s ease;
+}
+
+:is(.card-bady, .card-body) .btn.admin-submit-btn::before,
+:is(.card-bady, .card-body) .btn.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, var(--admin-blue-dark) 0%, var(--pg-salvia-profundo) 100%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+:is(.card-bady, .card-body) .btn.admin-submit-btn:hover,
+:is(.card-bady, .card-body) .btn.admin-submit-btn:focus-visible,
+:is(.card-bady, .card-body) .btn.admin-submit-btn:active,
+:is(.card-bady, .card-body) .btn.btn-primary:hover,
+:is(.card-bady, .card-body) .btn.btn-primary:focus-visible,
+:is(.card-bady, .card-body) .btn.btn-primary:active {
+  background: linear-gradient(90deg, var(--admin-cyan) 0%, var(--admin-accent) 100%);
+  color: #f1f3f2;
+  box-shadow: 0 0 22px rgba(162, 197, 172, .35);
+}
+
+:is(.card-bady, .card-body) .btn.admin-submit-btn:hover::before,
+:is(.card-bady, .card-body) .btn.admin-submit-btn:focus-visible::before,
+:is(.card-bady, .card-body) .btn.admin-submit-btn:active::before,
+:is(.card-bady, .card-body) .btn.btn-primary:hover::before,
+:is(.card-bady, .card-body) .btn.btn-primary:focus-visible::before,
+:is(.card-bady, .card-body) .btn.btn-primary:active::before {
+  opacity: 1;
+}
+
+:is(.card-bady, .card-body) .btn.admin-submit-btn:focus-visible,
+:is(.card-bady, .card-body) .btn.btn-primary:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 .25rem var(--pg-foco);
+}
+
+/* ---------- Enlace "¿Ya tienes cuenta?" (por si lo agregan) ---------- */
+.enlace-login {
+  color: var(--admin-muted);
+  font-size: .95rem;
+}
+
+.enlace-login a {
+  color: var(--admin-cyan);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.enlace-login a:hover,
+.enlace-login a:focus-visible {
+  color: var(--pg-salvia-claro);
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 575.98px) {
+  .card-bady,
+  .card-body {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+}
+
+/* En móviles muy pequeños la lista de requisitos pasa a 1 columna */
 @media (max-width: 420px) {
   .password-checklist {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .form-control,
+  .password-input-group,
+  .btn,
+  .btn::before,
+  .strength-badge,
+  .strength-progress .progress-bar,
+  .password-checklist li,
+  .password-checklist li i {
+    transition: none !important;
   }
 }
