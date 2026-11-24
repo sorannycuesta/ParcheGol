@@ -1,0 +1,406 @@
+/* ============================================================
+   PARCHEGOL · Tema visual compartido
+   Tokens y componentes base extraídos del panel de administración
+   (css/admin.css) para que las demás vistas conserven la misma
+   identidad: azul marino, verde salvia y las tipografías
+   Bricolage Grotesque + Plus Jakarta Sans.
+
+   Se activa agregando la clase "pg-theme" al <body>.
+   No reemplaza clases existentes: solo las viste igual que admin.
+   ============================================================ */
+
+:root {
+    /* Paleta del panel de administración */
+    --admin-blue: #1B264F;
+    --admin-blue-dark: #121B3D;
+    --admin-cyan: #A2C5AC;
+    --admin-accent: #9DB5B2;
+
+    --admin-text: #D3D5D4;
+    --admin-muted: #878E99;
+    --admin-border: rgba(157, 181, 178, 0.3);
+    --admin-soft: rgba(135, 142, 153, 0.12);
+
+    --admin-font-title: "Bricolage Grotesque", sans-serif;
+    --admin-font-text: "Plus Jakarta Sans", sans-serif;
+
+    /* Derivados reutilizables */
+    --pg-gradient-page: linear-gradient(160deg, #121B3D 0%, #1B264F 60%, #1B264F 100%);
+    --pg-gradient-hero: linear-gradient(110deg, #1B264F 0%, #26365F 55%, #878E99 100%);
+    --pg-surface: rgba(135, 142, 153, 0.12);
+    --pg-surface-solid: rgba(27, 38, 79, 0.75);
+    --pg-surface-field: rgba(27, 38, 79, 0.75);
+    --pg-focus-ring: 0 0 0 0.2rem rgba(162, 197, 172, 0.17);
+    --pg-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    --pg-danger: #f4978f;
+}
+
+/* ---------- Base de página ---------- */
+
+body.pg-theme {
+    color: var(--admin-text);
+    background: var(--pg-gradient-page);
+    font-family: var(--admin-font-text);
+    color-scheme: dark;
+}
+
+.pg-theme :is(section, main) :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--admin-text) !important;
+    font-family: var(--admin-font-title);
+}
+
+.pg-theme .lead {
+    color: var(--admin-text);
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+/* Colores semánticos de Bootstrap alineados con la paleta admin */
+.pg-theme .text-white {
+    color: var(--admin-text) !important;
+}
+
+.pg-theme .text-info {
+    color: var(--admin-cyan) !important;
+}
+
+.pg-theme .text-secondary {
+    color: var(--admin-muted) !important;
+}
+
+.pg-theme .text-muted {
+    color: var(--admin-muted) !important;
+}
+
+.pg-theme .text-success {
+    color: var(--admin-cyan) !important;
+}
+
+.pg-theme .text-light {
+    color: var(--admin-text) !important;
+}
+
+/* Etiquetas que arrastran text-dark desde el tema claro */
+.pg-theme .form-label.text-dark {
+    color: var(--admin-text) !important;
+}
+
+/* ---------- Encabezados de página ---------- */
+
+.pg-hero {
+    padding: 54px 0 62px;
+    color: var(--admin-text);
+    background: var(--pg-gradient-hero);
+}
+
+.pg-hero h1 {
+    margin: 14px 0 10px;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.pg-hero p {
+    max-width: 650px;
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 1.02rem;
+}
+
+.pg-eyebrow,
+.pg-theme .pg-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    color: var(--admin-cyan) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.pg-page-head h2 {
+    margin: 0.35rem 0 0.3rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.pg-page-head p {
+    max-width: 640px;
+    margin: 0;
+    color: var(--admin-muted);
+    font-size: 0.95rem;
+}
+
+.pg-page-head .bi {
+    color: var(--admin-cyan) !important;
+}
+
+.pg-heading-icon {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(162, 197, 172, 0.16);
+    color: var(--admin-cyan);
+    font-size: 1.25rem;
+}
+
+.pg-count {
+    flex: 0 0 auto;
+    padding: 7px 12px;
+    border: 1px solid var(--admin-border);
+    border-radius: 50px;
+    background: rgba(162, 197, 172, 0.15);
+    color: var(--admin-cyan);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.pg-empty-state {
+    border: 1px dashed var(--admin-border);
+    border-radius: 14px;
+    background: rgba(27, 38, 79, 0.5);
+}
+
+/* ---------- Tarjetas y paneles ---------- */
+
+.pg-theme .card {
+    --bs-card-bg: var(--pg-surface-solid);
+    --bs-card-border-color: var(--admin-border);
+    --bs-card-border-radius: 18px;
+    --bs-card-inner-border-radius: 17px;
+    --bs-card-color: var(--admin-text);
+    --bs-card-cap-bg: var(--pg-surface);
+    --bs-card-cap-color: var(--admin-text);
+    background-color: var(--pg-surface-solid);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    box-shadow: var(--pg-shadow);
+    font-family: var(--admin-font-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pg-theme .card:hover {
+    border-color: rgba(162, 197, 172, 0.45);
+    transform: none;
+}
+
+.pg-theme .card.bg-dark {
+    background-color: var(--pg-surface-solid) !important;
+}
+
+.pg-theme .card.rounded-4 {
+    border-radius: 18px !important;
+}
+
+.pg-theme .card-body {
+    color: var(--admin-text);
+}
+
+.pg-theme .card-title {
+    color: var(--admin-text);
+}
+
+.pg-theme .shadow-sm {
+    box-shadow: var(--pg-shadow) !important;
+}
+
+.pg-theme .border-secondary,
+.pg-theme .border-info,
+.pg-theme .border-success,
+.pg-theme .border-top,
+.pg-theme .border-bottom {
+    border-color: var(--admin-border) !important;
+}
+
+/* ---------- Badges ---------- */
+
+.pg-theme .badge {
+    font-family: var(--admin-font-text);
+    letter-spacing: 0.02em;
+}
+
+.pg-theme .badge.bg-dark {
+    border: 1px solid var(--admin-border);
+    background-color: rgba(18, 27, 61, 0.85) !important;
+    color: var(--admin-text) !important;
+}
+
+.pg-theme .badge.bg-info {
+    background-color: rgba(162, 197, 172, 0.16) !important;
+    color: var(--admin-cyan) !important;
+}
+
+.pg-theme .badge.bg-success {
+    border: 1px solid var(--admin-border);
+    background-color: rgba(162, 197, 172, 0.18) !important;
+    color: var(--admin-cyan) !important;
+}
+
+.pg-theme .badge.bg-secondary {
+    border: 1px solid var(--admin-border);
+    background-color: rgba(162, 197, 172, 0.15) !important;
+    color: var(--admin-cyan) !important;
+}
+
+.pg-theme .hero-badge {
+    border: 1px solid var(--admin-border);
+    background-color: rgba(162, 197, 172, 0.16) !important;
+    color: var(--admin-cyan) !important;
+}
+
+/* ---------- Formularios ---------- */
+
+.pg-theme .form-label {
+    color: var(--admin-text);
+    font-family: var(--admin-font-text);
+    font-weight: 600;
+}
+
+.pg-theme .form-control,
+.pg-theme .form-select {
+    min-height: 46px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background-color: var(--pg-surface-field);
+    color: var(--admin-text);
+    font-family: var(--admin-font-text);
+    font-size: 0.9rem;
+}
+
+.pg-theme .form-control::placeholder {
+    color: var(--admin-muted);
+}
+
+.pg-theme .form-control:focus,
+.pg-theme .form-select:focus {
+    border-color: var(--admin-cyan);
+    background-color: var(--admin-blue);
+    color: var(--admin-text);
+    box-shadow: var(--pg-focus-ring);
+}
+
+.pg-theme .form-select option {
+    background-color: var(--admin-blue);
+    color: var(--admin-text);
+}
+
+.pg-theme .form-control[readonly] {
+    background-color: rgba(18, 27, 61, 0.6);
+    color: var(--admin-muted);
+}
+
+.pg-theme .bg-body-tertiary {
+    background-color: rgba(18, 27, 61, 0.6) !important;
+    color: var(--admin-muted) !important;
+}
+
+.pg-theme .input-group-text {
+    border-color: var(--admin-border);
+    background: rgba(135, 142, 153, 0.2);
+    color: var(--admin-text);
+    font-size: 0.82rem;
+}
+
+.pg-theme .input-group > :first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+.pg-theme .input-group > :last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+.pg-theme .form-text {
+    color: var(--admin-muted);
+    font-size: 0.78rem;
+}
+
+.pg-theme .valid-feedback {
+    font-size: 0.76rem;
+}
+
+.pg-theme .invalid-feedback {
+    font-size: 0.76rem;
+}
+
+/* ---------- Botones ---------- */
+
+.pg-theme .btn {
+    --bs-btn-border-radius: 9px;
+    font-family: var(--admin-font-text);
+}
+
+.pg-theme .btn-info {
+    --bs-btn-color: #121B3D;
+    --bs-btn-bg: #A2C5AC;
+    --bs-btn-border-color: #A2C5AC;
+    --bs-btn-hover-color: #121B3D;
+    --bs-btn-hover-bg: #9DB5B2;
+    --bs-btn-hover-border-color: #9DB5B2;
+    --bs-btn-active-color: #121B3D;
+    --bs-btn-active-bg: #9DB5B2;
+    --bs-btn-active-border-color: #9DB5B2;
+    --bs-btn-disabled-color: #121B3D;
+    --bs-btn-disabled-bg: #A2C5AC;
+    --bs-btn-disabled-border-color: #A2C5AC;
+    --bs-btn-focus-shadow-rgb: 162, 197, 172;
+    font-weight: 700;
+}
+
+.pg-theme .btn-outline-light {
+    --bs-btn-color: var(--admin-text);
+    --bs-btn-border-color: var(--admin-border);
+    --bs-btn-hover-color: #121B3D;
+    --bs-btn-hover-bg: var(--admin-cyan);
+    --bs-btn-hover-border-color: var(--admin-cyan);
+    --bs-btn-active-color: #121B3D;
+    --bs-btn-active-bg: var(--admin-accent);
+    --bs-btn-active-border-color: var(--admin-accent);
+    --bs-btn-focus-shadow-rgb: 162, 197, 172;
+}
+
+.pg-theme .btn-info.text-dark {
+    color: var(--admin-blue-dark) !important;
+}
+
+.pg-theme .btn-outline-primary {
+    --bs-btn-color: var(--admin-cyan);
+    --bs-btn-border-color: var(--admin-border);
+    --bs-btn-hover-color: #121B3D;
+    --bs-btn-hover-bg: var(--admin-cyan);
+    --bs-btn-hover-border-color: var(--admin-cyan);
+    --bs-btn-active-color: #121B3D;
+    --bs-btn-active-bg: var(--admin-accent);
+    --bs-btn-active-border-color: var(--admin-accent);
+    --bs-btn-focus-shadow-rgb: 162, 197, 172;
+}
+
+.pg-theme .btn-outline-danger {
+    --bs-btn-color: var(--pg-danger);
+    --bs-btn-border-color: rgba(244, 151, 143, 0.45);
+    --bs-btn-hover-color: #121B3D;
+    --bs-btn-hover-bg: var(--pg-danger);
+    --bs-btn-hover-border-color: var(--pg-danger);
+    --bs-btn-active-color: #121B3D;
+    --bs-btn-active-bg: var(--pg-danger);
+    --bs-btn-active-border-color: var(--pg-danger);
+}
+
+.pg-theme .btn-link {
+    color: var(--admin-muted);
+    text-decoration: none;
+}
+
+.pg-theme .btn-link:hover {
+    color: var(--admin-cyan);
+}
+
+/* Barra de progreso */
+.pg-theme .progress {
+    background-color: rgba(135, 142, 153, 0.25);
+}

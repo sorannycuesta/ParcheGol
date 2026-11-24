@@ -1,129 +1,130 @@
+/* ============================================================
+   ParcheGol | Portada
+   Estilos propios del inicio. La paleta, tipografías y
+   componentes base viven en css/theme.css (misma identidad
+   visual del panel de administración).
+   ============================================================ */
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--altura-navbar);
-    background-color: var(--fondo-noche);
-    /* evita destellos blancos al hacer scroll rápido */
+    background-color: var(--admin-blue-dark);
 }
 
+/* Portada: fotografía de fondo + degradado del hero de admin */
 #inicio {
-    background-image: url("../img/messi.jpg");
-
+    background-image:
+        linear-gradient(112deg, rgba(18, 27, 61, 0.96) 0%, rgba(27, 38, 79, 0.9) 45%, rgba(135, 142, 153, 0.62) 100%),
+        url("../img/messi.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
+    border-bottom: 1px solid var(--admin-border);
 }
 
 body {
-    background: #020024;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 78%);
+    background: var(--pg-gradient-page);
 }
 
-/*acá tocó usar el important porque no quería coger por el bootstrap */
+.pg-theme #inicio h1 {
+    font-family: var(--admin-font-title);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+}
 
+/* Tarjeta de reserva rápida (glass navy, igual a los paneles) */
 #buscador .card {
-    background-color: rgba(138, 143, 150, 0.75) !important;
-    backdrop-filter: blur(9px);
-    -webkit-backdrop-filter: blur(9px);
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background-color: rgba(27, 38, 79, 0.78) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--admin-border) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--pg-shadow);
 }
 
 #buscador {
-    color: #ffffff;
+    color: var(--admin-text);
 }
 
-/* acá igual se usó el important por el bootstrap*/
-
 #buscador .text-secondary {
-    color: #adb5bd !important;
-    
+    color: var(--admin-muted) !important;
 }
 
 .btn-buscar:hover {
-    background-color: #030158 80%;
-    border-color: #0a1f6e;
-    color: #000000;
-
+    border-color: var(--admin-accent);
+    background-color: var(--admin-accent);
+    color: var(--admin-blue-dark);
 }
-
 
 #buscador p,
 #buscador label[for="fecha"],
 #buscador label[for="hora"] {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.3rem;
-    color: #f1fafd;
+    font-family: var(--admin-font-text);
+    font-size: 0.8rem;
+    color: var(--admin-text);
 }
 
 #buscador .card-body p {
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.05rem;
+    color: var(--admin-muted);
+    font-family: var(--admin-font-text);
+    font-size: 0.92rem;
 }
+
+/* ---------- Beneficios ---------- */
 
 .beneficios {
-    background: #020024;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 78%);
-
+    background: transparent;
 }
 
-/* acá igual*/
-
 .card-body1 {
-    background-color: rgb(10, 10, 88);
-    color: #24b0f1;
-    border-radius: 4%;
-    transition: transform 0.3s ease, box-shadow 0.3 ease;
-    border: 1px solid #0dcaf0 !important;
-    background-color: rgba(15, 23, 42, 0.6) !important;
-    color: #1395e0;
+    border: 0 !important;
+    background-color: transparent !important;
+    color: var(--admin-text);
+    transition: none;
 }
 
 .card-body1:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
+    transform: none;
+    box-shadow: none;
 }
 
-.container p {
-    font-size: 1.2rem;
-}
-
-/* acá igual*/
 #beneficios .card {
-    border: 1px solid #0dcaf0 !important;
-    background-color: transparent !important;
+    border: 1px solid var(--admin-border) !important;
+    background-color: var(--pg-surface) !important;
 }
 
 #beneficios .card-text {
-    font-size: 1.2rem;
+    font-size: 0.92rem;
     font-weight: 400;
+    color: var(--admin-muted);
 }
 
+/* ---------- Tarjetas del catálogo y de "cómo funciona" ---------- */
+
 .card {
-    background-color: rgb(10, 10, 88);
-    transition: .3 ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-    transform: scale(1.02)
+    transform: none;
 }
 
-
 .card-rejilla {
-    background-color: rgb(10, 10, 88);
-    transition: .3 ease;
+    border-radius: 18px;
+    background-color: var(--pg-surface);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .card-rejilla:hover {
-    transform: scale(1.03);
-    
+    transform: none;
+    border-color: rgba(162, 197, 172, 0.55) !important;
+    background-color: rgba(135, 142, 153, 0.16);
 }
 
-
-
 .lead {
-  font-size: 1.3rem ;
-  font-weight: 500 ;   
-  color: #ffffff ;    
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--admin-text);
 }

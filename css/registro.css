@@ -24,9 +24,9 @@
 
   /* Derivados para este formulario */
   --pg-fondo: linear-gradient(160deg, #121B3D 0%, #1B264F 55%, #1B264F 100%);
-  --pg-glass: rgba(60, 76, 142, .32);        /* panel un poco más claro que el fondo */
-  --pg-glass-blur: blur(58px);
-  --pg-campo: rgba(18, 27, 61, .6);          /* fondo de los inputs */
+  --pg-glass: rgba(135, 142, 153, .12);      /* misma superficie de los paneles de admin */
+  --pg-glass-blur: blur(16px);
+  --pg-campo: rgba(27, 38, 79, .75);          /* fondo de los inputs */
   --pg-autofill: #1a244c;                    /* opaco: tapa el fondo claro del autocompletado de Chrome */
   --pg-foco: rgba(162, 197, 172, .28);
   --pg-salvia-claro: #C5E0CD;
@@ -41,7 +41,6 @@ body {
   font-family: var(--admin-font-text);
   color: var(--admin-text);
   background: var(--pg-fondo);
-  background-attachment: fixed;
 }
 
 section.container {
@@ -58,9 +57,9 @@ section.container {
   backdrop-filter: var(--pg-glass-blur);
   color: var(--admin-text);
   border: 1px solid var(--admin-border);
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 2.25rem 2rem 2rem;
-  box-shadow: 0 10px 34px rgba(8, 12, 32, .5);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .2);
 }
 
 /* ---------- Encabezado ---------- */
@@ -102,7 +101,7 @@ section.container {
   padding: .7rem .85rem;
   background-color: var(--pg-campo);
   border: 1.5px solid var(--admin-border);
-  border-radius: 10px;
+  border-radius: 9px;
   color: var(--admin-text);
   transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
@@ -174,7 +173,7 @@ section.container {
 
 /* ---------- Grupo de contraseña (candado + input + ojo) ---------- */
 :is(.card-bady, .card-body) .password-input-group {
-  border-radius: 10px;
+  border-radius: 9px;
   transition: box-shadow .15s ease;
 }
 
@@ -196,13 +195,13 @@ section.container {
 
 /* Esquinas redondeadas solo en los extremos del grupo */
 :is(.card-bady, .card-body) .password-input-group > :first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
 }
 
 :is(.card-bady, .card-body) .password-input-group > :last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
 }
 
 /* El brillo se pone en todo el grupo, no solo en el input */
@@ -378,7 +377,7 @@ section.container {
   padding: .75rem 1rem;
   margin-top: .5rem;
   border: 0;
-  border-radius: 10px;
+  border-radius: 9px;
   color: var(--admin-blue-dark);
   background: linear-gradient(90deg, var(--admin-cyan) 0%, var(--admin-accent) 100%);
   box-shadow: 0 6px 20px rgba(8, 12, 32, .4);
