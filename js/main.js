@@ -6,7 +6,9 @@ const LINKS = [
     { href: "contactanos.html",    icono: "fa-address-book", label: "Contáctanos",  descripcion: "Aquí puedes contactarnos"},
     { href: "admin.html",          icono:  "fa-solid fa-user-tie", label: "Admin", descripcion: "Formulario gestión de canchas"},
     // link catalogo 
-    { href: "index.html#listadoCanchas",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"}
+    { href: "index.html#listadoCanchas",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"},
+    // iniciar sesion
+    { href: "login.html", icono: "fa-key", label: "Iniciar sesión", descripcion: "Ingresa a tu cuenta" }
 ];
 
 /* Webcomponent sidebar */
@@ -103,6 +105,8 @@ class AppNavbar extends HTMLElement {
                   <i class="fa-solid fa-envelope"></i><span>Contáctanos</span></a></li>
                 <li><a class="oc-link" href="catalogo.html" data-page="catalogo.html">
                   <i class="fa-solid fa-futbol"></i><span>Catálogo de canchas</span></a></li>
+                <li><a class="oc-link" href="login.html" data-page="login.html">
+                  <i class="fa-solid fa-key"></i><span>Iniciar sesión</span></a></li>
               </ul>
             </section>
 
