@@ -133,8 +133,7 @@ h2 {
     margin-left: 0;
 }
 
-=======
->>>>>>> e8164219ea371cc3801635e3ef458346da6374dc
+
 .lista-reservas {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
