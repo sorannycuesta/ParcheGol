@@ -158,7 +158,8 @@ body {
 }
 
 /* El botón de orientación debe verse igual que los enlaces */
-.btn_orientacion {
+.btn_orientacion,
+.btn_cerrar {
     background: none;
     border: none;
     padding: 0;
