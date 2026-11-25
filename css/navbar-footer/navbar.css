@@ -346,10 +346,6 @@ app-navbar {
     }
 }
 
-
-
-
-
 /* ---------- Cuenta: usuario y cerrar sesión ---------- */
 .oc-usuario{
     margin: 0 0 0.5rem 1rem;
@@ -367,3 +363,4 @@ button.oc-link{
     font: inherit;
     cursor: pointer;
 }
+
