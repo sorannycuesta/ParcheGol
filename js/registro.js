@@ -1,5 +1,8 @@
+// Si ya hay sesión, no tiene sentido registrarse
+Auth.redirigirSiAutenticado();
+
 const form = document.getElementById("formRegistro");
-const CLAVE_USUARIO = "usuarioParcheGol";
+
 
 // Expresiones regulares adaptadas a la misma convención del proyecto
 const regex = {
@@ -168,8 +171,9 @@ function capturarDatosUsuario() {
   };
 }
 
+// Auth guarda en la lista de usuarios, asigna rol cliente y rechaza correos repetidos
 function guardarUsuario(usuario) {
-  localStorage.setItem(CLAVE_USUARIO, JSON.stringify(usuario));
+  return Auth.registrarUsuario(usuario);
 }
 
 // Manejo del envío del formulario (igual lógica que admin.js)
@@ -183,10 +187,15 @@ form.addEventListener("submit", (evento) => {
     return;
   }
 
-  const usuario = capturarDatosUsuario();
-  guardarUsuario(usuario);
+  const resultado = guardarUsuario(capturarDatosUsuario());
 
-  console.log("Usuario registrado y guardado en localStorage:", usuario);
+  if (!resultado.ok) {
+    const feedback = elementos.email.closest(".admin-field")?.querySelector(".invalid-feedback");
+    if (feedback) feedback.textContent = resultado.error;
+    mostrarEstadoCampo(campos.find((c) => c.el === elementos.email), false);
+    elementos.email.focus();
+    return;
+  }
 
   form.reset();
   limpiarValidaciones();
@@ -197,11 +206,15 @@ form.addEventListener("submit", (evento) => {
   if (typeof Swal !== "undefined") {
     Swal.fire({
       icon: "success",
-      title: "¡Registro exitoso!",
-      text: "Tus datos se han guardado correctamente.",
+      title: "¡Cuenta creada con éxito!",
+      text: "Ya puedes iniciar sesión.",
       timer: 2000,
+      timerProgressBar: true,
       showConfirmButton: false,
-    });
+    }).then(() => (window.location.href = "login.html"));
+  } else {
+    alert("¡Cuenta creada con éxito!");
+    window.location.href = "login.html";
   }
 });
 
