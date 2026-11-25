@@ -2,10 +2,6 @@
 // reserva.js - Reservas dinámicas desde el catálogo de canchas
 // ============================================================
 
-const sesion = Auth.obtenerSesion();
-const esAdmin = Auth.esAdmin();
-
-const CLAVE_CANCHA = "canchasParcheGol";
 const formularioReserva = document.querySelector("#formReserva");
 const listaReserva     = document.querySelector("#listaReservas");
 const contador         = document.querySelector("#contadorReservas");
