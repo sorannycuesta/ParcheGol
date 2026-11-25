@@ -1,22 +1,38 @@
+/* ============================================================
+   ParcheGol | Footer
+   Paleta única del proyecto: azul marino + verde salvia,
+   la misma de css/theme.css y del panel de administración.
+   ============================================================ */
+
 :root {
-    --color-1: #0A1F6E;
-    --color-2: #5dccff;
+    --color-1: var(--admin-blue-dark, #121B3D);
+    --color-2: var(--admin-cyan, #A2C5AC);
+
+    --foot-text: var(--admin-text, #D3D5D4);
+    --foot-muted: var(--admin-muted, #878E99);
+    --foot-border: var(--admin-border, rgba(157, 181, 178, 0.3));
+    --foot-font: var(--admin-font-text, "Plus Jakarta Sans", sans-serif);
+    --foot-font-title: var(--admin-font-title, "Bricolage Grotesque", sans-serif);
 }
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 footer {
-    background-color: var(--color-1);
     position: relative;
     width: 100%;
     min-height: 350px;
     padding: 3rem 1rem;
     display: flex;
     align-items: center;
+    background-color: var(--color-1);
+    background-image: linear-gradient(180deg, #1B264F 0%, #121B3D 100%);
+    border-top: 1px solid var(--foot-border);
+    color: var(--foot-text);
+    font-family: var(--foot-font);
 }
 
 .container-foot {
@@ -25,7 +41,7 @@ footer {
     margin: 0 auto;
 }
 
-.row-foot{
+.row-foot {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 165px 165px;
     column-gap: 4rem;
@@ -33,38 +49,44 @@ footer {
     width: 100%;
 }
 
-.col-foot{
+.col-foot {
     min-width: 0;
-    color: aliceblue;
+    color: var(--foot-text);
 }
 
 /* Columna company */
-#company{
+#company {
     display: flex;
     flex-direction: column;
 }
 
-#company p{
+#company p {
     margin: 0;
     max-width: 520px;
+    color: var(--foot-muted);
+    line-height: 1.7;
 }
 
-.col-foot .logo{
+.col-foot .logo {
     display: block;
     width: 60px;
     height: 60px;
     flex-shrink: 0;
     margin-bottom: 12px;
+    /* El logo original es azul: se lleva a la paleta salvia */
+    filter: hue-rotate(270deg) saturate(0.5) brightness(1.15);
 }
 
-.col-foot .copy{
+.col-foot .copy {
     margin-top: auto;
     padding-top: 1rem;
+    color: var(--foot-muted);
 }
 
 /* Títulos */
-.col-foot .h3-foot{
+.col-foot .h3-foot {
     color: var(--color-2);
+    font-family: var(--foot-font-title);
     font-size: 1.75rem;
     line-height: 2rem;
     margin: 14px 0 26px;
@@ -72,7 +94,7 @@ footer {
     cursor: pointer;
 }
 
-.col-foot .h3-foot::after{
+.col-foot .h3-foot::after {
     content: '';
     height: 3px;
     width: 0;
@@ -83,30 +105,30 @@ footer {
     transition: 0.3s ease;
 }
 
-.col-foot .h3-foot:hover::after{
+.col-foot .h3-foot:hover::after {
     width: 30px;
 }
 
 /* Links */
-.col-foot .links .foot-link{
+.col-foot .links .foot-link {
     display: block;
     white-space: nowrap;
     text-decoration: none;
-    color: aliceblue !important;
+    color: var(--foot-text) !important;
     margin-bottom: 5px;
     position: relative;
     transition: 0.3s ease;
 }
 
-.col-foot .links .foot-link:last-child{
+.col-foot .links .foot-link:last-child {
     margin-bottom: 0;
 }
 
-.foot-link i{
+.foot-link i {
     margin-right: 6px;
 }
 
-.col-foot .links .foot-link::before{
+.col-foot .links .foot-link::before {
     content: '';
     height: 16px;
     width: 3px;
@@ -118,11 +140,11 @@ footer {
     opacity: 0;
 }
 
-.col-foot .links .foot-link:hover::before{
+.col-foot .links .foot-link:hover::before {
     opacity: 1;
 }
 
-.col-foot .links .foot-link:hover{
+.col-foot .links .foot-link:hover {
     transform: translateX(-8px);
     color: var(--color-2) !important;
 }
@@ -130,27 +152,29 @@ footer {
 /* Responsive */
 
 @media (max-width: 1100px) {
-    .row-foot{
+    .row-foot {
         column-gap: 2rem;
     }
 }
 
 @media (max-width: 900px) {
-    .row-foot{
+    .row-foot {
         grid-template-columns: 1fr 1fr;
         column-gap: 2rem;
         row-gap: 2rem;
     }
-    #company{
+
+    #company {
         grid-column: 1 / -1;
     }
-    .col-foot .copy{
+
+    .col-foot .copy {
         margin-top: 0;
     }
 }
 
 @media (max-width: 480px) {
-    .row-foot{
+    .row-foot {
         grid-template-columns: 1fr;
     }
 }
