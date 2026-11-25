@@ -163,7 +163,8 @@ body {
 }
 
 /* El botón de orientación debe verse igual que los enlaces */
-.btn_orientacion {
+.btn_orientacion,
+.btn_cerrar {
     background: none;
     border: none;
     padding: 0;
@@ -333,3 +334,22 @@ app-navbar{
 
 
 
+
+
+/* ---------- Cuenta: usuario y cerrar sesión ---------- */
+.oc-usuario{
+    margin: 0 0 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: aliceblue;
+    overflow-wrap: anywhere;
+}
+
+button.oc-link{
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}

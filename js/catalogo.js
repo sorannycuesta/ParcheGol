@@ -61,9 +61,9 @@ function cargarCatalogoPublico() {
                 <i class="bi bi-geo-alt"></i> Ver mapa
               </a>
             </div>
-            <button class="btn btn-info fw-semibold px-4 text-dark" onclick="alert('Redirigiendo a reserva para: ${cancha.titulo}')">
+            <a href="reserva.html?cancha=${cancha.id}" class="btn btn-info fw-semibold px-4 text-dark">
               Reservar
-            </button>
+            </a>
           </div>
         </div>
       </div>

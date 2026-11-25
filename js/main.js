@@ -1,24 +1,56 @@
+// ---------- Sesión (main.js no depende de auth.js: lee la sesión directo) ----------
+const CLAVE_SESION = "sesionParcheGol";
+
+function sesionActual() {
+    try {
+        return JSON.parse(localStorage.getItem(CLAVE_SESION));
+    } catch {
+        return null;
+    }
+}
+
+function cerrarSesionGlobal() {
+    if (typeof Auth !== "undefined") {
+        Auth.cerrarSesion();
+    } else {
+        localStorage.removeItem(CLAVE_SESION);
+        sessionStorage.removeItem("reservaPendienteParcheGol");
+        window.location.href = "index.html";
+    }
+}
+
 // 1. Los datos de los botones viven en un array.
 //    Para agregar un botón nuevo, solo añades una línea aquí.
-const LINKS = [
+const LINKS_BASE = [
     { href: "index.html",          icono: "fa-house",        label: "Inicio" ,  descripcion: "Vuelve a la página principal"},
     { href: "sobre-nosotros.html", icono: "fa-users-rays",   label: "Sobre nosotros" ,  descripcion: "Conoce más sobre nosotros"},
     { href: "contactanos.html",    icono: "fa-address-book", label: "Contáctanos",  descripcion: "Aquí puedes contactarnos"},
-    { href: "admin.html",          icono:  "fa-solid fa-user-tie", label: "Admin", descripcion: "Formulario gestión de canchas"},
-    // link catalogo 
-    { href: "index.html#listadoCanchas",       icono: "fa-futbol",       label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"},
-    // iniciar sesion
-    { href: "login.html", icono: "fa-key", label: "Iniciar sesión", descripcion: "Ingresa a tu cuenta" }
+    { href: "index.html#listadoCanchas", icono: "fa-futbol", label: "Catálogo",     descripcion: "Ver todas las canchas disponibles"},
+    { href: "reserva.html",        icono: "fa-calendar-check", label: "Reservas",   descripcion: "Reserva tu cancha"},
 ];
+
+// Los enlaces cambian según el estado: visitante, cliente o administrador
+function enlaces() {
+    const sesion = sesionActual();
+    const lista = [...LINKS_BASE];
+    if (sesion?.rol === "administrador") {
+        lista.push({ href: "admin.html", icono: "fa-user-tie", label: "Administración", descripcion: "Formulario gestión de canchas" });
+    }
+    if (!sesion) {
+        lista.push({ href: "login.html", icono: "fa-key", label: "Iniciar sesión", descripcion: "Ingresa a tu cuenta" });
+    }
+    return lista;
+}
 
 /* Webcomponent sidebar */
 class AppSidebar extends HTMLElement {
     connectedCallback() {
         // 2. Nombre del archivo actual. Si está vacío (ruta "/"), es el inicio.
         const actual = location.pathname.split("/").pop() || "index.html";
+        const sesion = sesionActual();
 
         // 3. Con .map() convertimos cada objeto en un <li>
-        const items = LINKS.map(({ href, icono, label, descripcion }) => `
+        const items = enlaces().map(({ href, icono, label, descripcion }) => `
             <li>
                 <a class="link_nav" href="${href}" data-tooltip="${descripcion}" aria-label="${label}"
                    ${href === actual ? 'aria-current="page"' : ""}>
@@ -27,6 +59,15 @@ class AppSidebar extends HTMLElement {
             </li>
         `).join("");
 
+        // Botón de cerrar sesión (solo si hay sesión)
+        const cerrar = sesion ? `
+            <li>
+                <button class="link_nav btn_cerrar" type="button"
+                 data-tooltip="Cerrar sesión" aria-label="Cerrar sesión">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </li>` : "";
+
         // 4. Pintamos la sidebar
         this.innerHTML = `
 
@@ -34,6 +75,7 @@ class AppSidebar extends HTMLElement {
             <nav class="nav_flotante" aria-label="Navegación principal">
                 <ul class="ul_nav">
                     ${items}
+                    ${cerrar}
                     <li>
                         <button class="link_nav btn_orientacion" type="button"
                          data-tooltip="Mueve la barra al otro lado"
@@ -47,6 +89,7 @@ class AppSidebar extends HTMLElement {
 
         // 5. Orientación: recordar la elección y cambiarla con el botón
        const nav = this.querySelector(".nav_flotante");
+this.querySelector(".btn_cerrar")?.addEventListener("click", cerrarSesionGlobal);
 
 if (localStorage.getItem("sidebar-lado") === "derecha") {
     nav.classList.add("derecha");
@@ -65,6 +108,31 @@ customElements.define("app-sidebar", AppSidebar);
 
 class AppNavbar extends HTMLElement {
   connectedCallback() {
+    const sesion = sesionActual();
+    const esAdmin = sesion?.rol === "administrador";
+
+    // Grupo "cuenta": cambia según visitante / cliente / administrador
+    const cuentaHTML = sesion ? `
+            <section class="oc-grupo">
+              <h3 class="oc-grupo__titulo">Mi cuenta</h3>
+              <p class="oc-usuario" id="ocUsuario"></p>
+              <ul class="oc-lista">
+                ${esAdmin ? `<li><a class="oc-link" href="admin.html" data-page="admin.html">
+                  <i class="fa-solid fa-user-tie"></i><span>Administración</span></a></li>` : ""}
+                <li><button class="oc-link btn_cerrar" type="button">
+                  <i class="fa-solid fa-right-from-bracket"></i><span>Cerrar sesión</span></button></li>
+              </ul>
+            </section>` : `
+            <section class="oc-grupo">
+              <h3 class="oc-grupo__titulo">Cuenta</h3>
+              <ul class="oc-lista">
+                <li><a class="oc-link" href="login.html" data-page="login.html">
+                  <i class="fa-solid fa-key"></i><span>Iniciar sesión</span></a></li>
+                <li><a class="oc-link" href="registro.html" data-page="registro.html">
+                  <i class="fa-solid fa-user-plus"></i><span>Crear cuenta</span></a></li>
+              </ul>
+            </section>`;
+
     this.innerHTML = `
       <header class="nav-movil">
         <div class="nav-movil__bar">
@@ -105,10 +173,12 @@ class AppNavbar extends HTMLElement {
                   <i class="fa-solid fa-envelope"></i><span>Contáctanos</span></a></li>
                 <li><a class="oc-link" href="catalogo.html" data-page="catalogo.html">
                   <i class="fa-solid fa-futbol"></i><span>Catálogo de canchas</span></a></li>
-                <li><a class="oc-link" href="login.html" data-page="login.html">
-                  <i class="fa-solid fa-key"></i><span>Iniciar sesión</span></a></li>
+                <li><a class="oc-link" href="reserva.html" data-page="reserva.html">
+                  <i class="fa-solid fa-calendar-check"></i><span>Reservas</span></a></li>
               </ul>
             </section>
+
+            ${cuentaHTML}
 
             <!-- PLANTILLA PARA UNA NUEVA CATEGORÍA: copia desde aquí
             <section class="oc-grupo">
@@ -124,6 +194,11 @@ class AppNavbar extends HTMLElement {
         </div>
       </div>
     `;
+
+    // Nombre del usuario (textContent: evita inyectar HTML) y cerrar sesión
+    const etiquetaUsuario = this.querySelector("#ocUsuario");
+    if (etiquetaUsuario && sesion) etiquetaUsuario.textContent = sesion.nombre;
+    this.querySelector(".btn_cerrar")?.addEventListener("click", cerrarSesionGlobal);
 
     // Marca como activo el enlace de la página actual
     const actual = location.pathname.split('/').pop() || 'index.html';
@@ -206,5 +281,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
 });
-
-

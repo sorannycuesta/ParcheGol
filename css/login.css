@@ -1,0 +1,154 @@
+/* login.css - Inicio de sesión ParcheGol
+   Misma paleta que el panel de administración. Cargar después de admin.css y registro.css. */
+:root {
+  --admin-blue: #1B264F;
+  --admin-blue-dark: #121B3D;
+  --admin-cyan: #A2C5AC;
+  --admin-accent: #9DB5B2;
+
+  --admin-text: #D3D5D4;
+  --admin-muted: #878E99;
+  --admin-border: rgba(157, 181, 178, 0.3);
+  --admin-soft: rgba(135, 142, 153, 0.12);
+
+  --admin-font-title: "Bricolage Grotesque", sans-serif;
+  --admin-font-text: "Plus Jakarta Sans", sans-serif;
+}
+
+body {
+  background: linear-gradient(160deg, var(--admin-blue-dark) 0%, var(--admin-blue) 100%);
+  color: var(--admin-text);
+  font-family: var(--admin-font-text);
+}
+
+/* Tarjeta del formulario */
+.card-bady {
+  background: rgba(18, 27, 61, 0.85);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.card-bady h2,
+.card-bady h4 {
+  font-family: var(--admin-font-title);
+  color: var(--admin-cyan);
+}
+
+.card-bady h4 {
+  color: var(--admin-text);
+  font-weight: 600;
+}
+
+.card-bady .text-muted {
+  color: var(--admin-muted) !important;
+}
+
+/* Etiquetas */
+.card-bady .form-label {
+  color: var(--admin-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Inputs */
+.card-bady .form-control,
+.card-bady .input-group-text {
+  background-color: var(--admin-soft);
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text);
+}
+
+.card-bady .input-group-text {
+  color: var(--admin-accent);
+}
+
+.card-bady .form-control::placeholder {
+  color: var(--admin-muted);
+}
+
+.card-bady .form-control:focus {
+  background-color: var(--admin-soft);
+  color: var(--admin-text);
+  border-color: var(--admin-cyan);
+  box-shadow: 0 0 0 0.2rem rgba(162, 197, 172, 0.2);
+}
+
+/* Autocompletado del navegador: evita el fondo blanco/amarillo */
+.card-bady .form-control:-webkit-autofill {
+  -webkit-text-fill-color: var(--admin-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--admin-blue-dark) inset;
+  caret-color: var(--admin-text);
+}
+
+/* Botón del ojo */
+.btn-eye {
+  background-color: var(--admin-soft);
+  border: 1px solid var(--admin-border);
+  color: var(--admin-accent);
+}
+
+.btn-eye:hover,
+.btn-eye:focus {
+  background-color: var(--admin-border);
+  color: var(--admin-cyan);
+}
+
+/* Validación */
+.card-bady .form-control.is-invalid {
+  border-color: #e5898c;
+}
+
+.card-bady .form-control.is-valid {
+  border-color: var(--admin-cyan);
+}
+
+.card-bady .invalid-feedback {
+  color: #f0a3a6;
+}
+
+/* Alerta de credenciales incorrectas */
+#mensajeLogin {
+  background-color: rgba(229, 137, 140, 0.12);
+  border: 1px solid rgba(229, 137, 140, 0.5);
+  color: #f0a3a6;
+  font-size: 0.9rem;
+}
+
+/* Botón principal */
+.admin-submit-btn {
+  background-color: var(--admin-cyan);
+  border: none;
+  color: var(--admin-blue-dark);
+  font-family: var(--admin-font-title);
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.admin-submit-btn:hover,
+.admin-submit-btn:focus {
+  background-color: var(--admin-accent);
+  color: var(--admin-blue-dark);
+  transform: translateY(-1px);
+}
+
+/* Enlace a registro */
+.card-bady a {
+  color: var(--admin-cyan);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.card-bady a:hover {
+  color: var(--admin-accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+  .card-bady {
+    padding: 1.5rem 1.25rem;
+  }
+}

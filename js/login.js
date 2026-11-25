@@ -1,41 +1,80 @@
+/* login.js - Lógica del formulario de inicio de sesión */
+Auth.redirigirSiAutenticado();
 
-const form = document.getElementById("formLogin");
-const CLAVE_USUARIO = "usuarioParcheGol";
-const CLAVE_SESION = "sesionParcheGol";
+const formLogin = document.getElementById("formLogin");
+const inputEmail = document.getElementById("email");
+const inputPassword = document.getElementById("password");
+const btnOjo = document.getElementById("togglePassword");
+const iconoOjo = document.getElementById("iconoOjo");
+const mensajeLogin = document.getElementById("mensajeLogin");
 
-const elementos = {
-    email: document.getElementById("email"),
-    password: document.getElementById("password")
+const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+function marcar(input, correcto) {
+  input.classList.toggle("is-valid", correcto);
+  input.classList.toggle("is-invalid", !correcto);
+  return correcto;
 }
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
+function validarEmail() {
+  return marcar(inputEmail, regexEmail.test(inputEmail.value.trim()));
+}
 
-    // Recuperar usuario registrado
-    const usuario = JSON.parse(localStorage.getItem(CLAVE_USUARIO));
+function validarPassword() {
+  return marcar(inputPassword, inputPassword.value !== "");
+}
 
-    // Validar que exista un usuario
-    if (!usuario) {
-        alert("No hay usuarios registrados. Regístrate primero.");
-        return;
-    }
+function mostrarError(texto) {
+  mensajeLogin.textContent = texto;
+  mensajeLogin.classList.remove("d-none");
+}
 
-    // Validar correo y contraseña
-    if (usuario.email !== elementos.email.value || usuario.password !== elementos.password.value) {
-        alert("Correo o contraseña incorrectos.");
-        return;
-    }
+function ocultarError() {
+  mensajeLogin.classList.add("d-none");
+}
 
-    // Crear objeto de sesión
-    const sesion = {
-        id: usuario.id,
-        nombre: usuario.nombre,
-        email: usuario.email
-    };
+inputEmail.addEventListener("blur", validarEmail);
+inputPassword.addEventListener("blur", validarPassword);
+[inputEmail, inputPassword].forEach((el) => el.addEventListener("input", ocultarError));
 
-    // Guardar sesión
-    localStorage.setItem(CLAVE_SESION, JSON.stringify(sesion));
+btnOjo.addEventListener("click", () => {
+  const oculta = inputPassword.type === "password";
+  inputPassword.type = oculta ? "text" : "password";
+  btnOjo.title = oculta ? "Ocultar contraseña" : "Mostrar contraseña";
+  iconoOjo.classList.toggle("bi-eye", !oculta);
+  iconoOjo.classList.toggle("bi-eye-slash", oculta);
+});
 
-    // Redirigir al inicio
-    window.location.href = "index.html";
+formLogin.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  ocultarError();
+
+  const emailOk = validarEmail();
+  const passOk = validarPassword();
+  if (!emailOk || !passOk) {
+    formLogin.querySelector(".is-invalid")?.focus();
+    return;
+  }
+
+  const resultado = Auth.iniciarSesion(inputEmail.value, inputPassword.value);
+
+  if (!resultado.ok) {
+    mostrarError(resultado.error);
+    inputPassword.value = "";
+    inputPassword.focus();
+    return;
+  }
+
+  const nombre = resultado.sesion.nombre.split(" ")[0];
+
+  if (typeof Swal !== "undefined") {
+    Swal.fire({
+      icon: "success",
+      title: `¡Hola, ${nombre}!`,
+      timer: 1200,
+      showConfirmButton: false,
+    }).then(() => Auth.redirigirSegunRol());
+  } else {
+    Auth.redirigirSegunRol();
+  }
 });

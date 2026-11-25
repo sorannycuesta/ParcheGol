@@ -21,10 +21,14 @@
   <link href="css/theme.css" rel="stylesheet">
   <link href="css/reserva.css" rel="stylesheet">
 
+  <!-- Guard: exige sesión (cliente o admin). Si no hay, guarda esta URL y manda a login -->
+  <script src="js/auth.js"></script>
+  <script>Auth.protegerPagina();</script>
+
   <script src="https://kit.fontawesome.com/2b9c7542e8.js" crossorigin="anonymous"></script>
   <script src="js/main.js" defer></script>
-  <script src="js/admin.js" defer></script>
 
+  
 </head>
 
 <body class="pg-theme">
@@ -174,13 +178,14 @@
     </main>
   </div>
 
-  <script src="/ParcheGol/js/reserva.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/reserva.js"></script>
 </body>
 
 </html>
