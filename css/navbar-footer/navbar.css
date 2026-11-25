@@ -1,6 +1,21 @@
+/* ============================================================
+   ParcheGol | Navbar móvil y sidebar flotante
+   Paleta única del proyecto: azul marino + verde salvia,
+   la misma de css/theme.css y del panel de administración.
+   ============================================================ */
+
 :root {
-    --nav-icon: rgba(255, 255, 255, 0.7);
-    --nav-accent: #5eead4;
+    /* Tokens del chrome: reutiliza los del tema cuando está
+       cargado y, si no, conserva exactamente los mismos valores. */
+    --nav-accent: var(--admin-cyan, #A2C5AC);
+    --nav-surface: rgba(162, 197, 172, 0.13);
+    --nav-surface-strong: rgba(18, 27, 61, 0.94);
+    --nav-text: var(--admin-text, #D3D5D4);
+    --nav-border: var(--admin-border, rgba(157, 181, 178, 0.3));
+    --nav-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+    --nav-font: var(--admin-font-text, "Plus Jakarta Sans", sans-serif);
+    --nav-font-title: var(--admin-font-title, "Bricolage Grotesque", sans-serif);
+    --nav-icon: rgba(211, 213, 212, 0.72);
 }
 
 html {
@@ -20,7 +35,7 @@ body {
 /* Fondo de prueba: con color liso el blur no se nota */
 .back {
     min-height: 2000px;
-    background: linear-gradient(180deg, #042b52 0%, #0b5a8f 35%, #1b8a9c 65%, #042b52 100%);
+    background: linear-gradient(180deg, #121B3D 0%, #1B264F 35%, #1B264F 65%, #121B3D 100%);
 }
 
 /* ---------- Contenedor glass ---------- */
@@ -32,14 +47,13 @@ body {
     transform: translateY(-50%);
     z-index: 1000;
     padding: 12px 8px;
-    border-radius: 20px;
-    background: rgba(180, 215, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-        animation: aparecer 0.6s ease both;
-
+    border-radius: 18px;
+    background: var(--nav-surface);
+    border: 1px solid var(--nav-border);
+    box-shadow: var(--nav-shadow);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    animation: aparecer 0.6s ease both;
 }
 
 .ul_nav {
@@ -49,8 +63,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-        z-index: 1000;
-
+    z-index: 1000;
 }
 
 /* ---------- Enlaces ---------- */
@@ -63,10 +76,10 @@ body {
     font-size: 1.25rem;
     color: var(--nav-icon);
     text-decoration: none;
-    transition: color 0.25s ease;
-        z-index: 1000;
-
+    transition: color 0.25s ease, transform 0.25s ease;
+    z-index: 1000;
 }
+
 /* --------- Tooltip para mostrar descripcion en el nav ---------- */
 .link_nav::before {
     content: attr(data-tooltip);
@@ -77,12 +90,13 @@ body {
     width: max-content;
     max-width: min(220px, 60vw);
     padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 0.875rem;
+    border-radius: 9px;
+    font-family: var(--nav-font);
+    font-size: 0.8rem;
     line-height: 1.3;
-    color: #fff;
-    background: rgba(4, 43, 82, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--nav-text);
+    background: var(--nav-surface-strong);
+    border: 1px solid var(--nav-border);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
@@ -101,7 +115,6 @@ body {
     opacity: 1;
 }
 
-
 /* Barrita bajo el ícono, escondida por defecto */
 .link_nav::after {
     content: "";
@@ -112,7 +125,7 @@ body {
     height: 3px;
     border-radius: 999px;
     background: currentColor;
-     opacity: 1;
+    opacity: 1;
     transform: translateX(-50%) scaleX(0);
     transition: transform 0.25s ease;
 }
@@ -120,8 +133,6 @@ body {
 .link_nav:hover {
     color: var(--nav-accent);
     transform: translateY(-3px);
-    transition:0.20s ease;
-    cursor: pointer;
 }
 
 .link_nav[aria-current="page"] {
@@ -139,27 +150,11 @@ body {
     border-radius: 12px;
 }
 
-
-
-/* Izquierda */
-
-
 /* Variante: la barra pasa al lado derecho */
 .nav_flotante.derecha {
     left: auto;
     right: 20px;
-    --desde: 20px 0;   /* la animación de entrada llega desde la derecha */
-}
-
-/* Enlaces: ahora también animan el movimiento del hover */
-.link_nav {
-    /* ...lo que ya tenías... */
-    transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.link_nav:hover {
-    color: var(--nav-accent);
-    transform: translateY(-3px);
+    --desde: 20px 0; /* la animación de entrada llega desde la derecha */
 }
 
 /* El botón de orientación debe verse igual que los enlaces */
@@ -173,21 +168,21 @@ body {
 /* ================= navbar ===================================== */
 
 /* ---------- Navbar móvil / tablet ---------- */
-app-navbar{
+app-navbar {
     display: contents; /* para que el sticky del header funcione */
 }
 
-.nav-movil{
+.nav-movil {
     position: sticky;
     top: 0;
     z-index: 1030;
-    background: rgba(10, 31, 110, 0.75);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--nav-surface-strong);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--nav-border);
 }
 
-.nav-movil__bar{
+.nav-movil__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -195,99 +190,111 @@ app-navbar{
     padding: 0 1rem;
 }
 
-.nav-movil__brand{
+.nav-movil__brand {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    color: aliceblue;
+    color: var(--nav-text);
     text-decoration: none;
+    font-family: var(--nav-font-title);
     font-weight: 600;
     font-size: 1.15rem;
 }
 
-.nav-movil__toggle{
+/* El logo original es azul: se lleva a la paleta salvia */
+.nav-movil__brand img {
+    filter: hue-rotate(270deg) saturate(0.5) brightness(1.15);
+}
+
+.nav-movil__toggle {
     width: 44px;
     height: 44px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--nav-border);
     border-radius: 0.75rem;
-    color: aliceblue;
+    color: var(--nav-text);
     font-size: 1.2rem;
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.nav-movil__toggle:hover{
-    color: var(--color-2);
-    border-color: var(--color-2);
+.nav-movil__toggle:hover {
+    color: var(--nav-accent);
+    border-color: var(--nav-accent);
 }
 
 /* ---------- Offcanvas ---------- */
-.oc-menu{
+.oc-menu {
     --bs-offcanvas-width: 300px;
-    --bs-offcanvas-bg: rgba(10, 31, 110, 0.85);
-    --bs-offcanvas-color: aliceblue;
-    --bs-offcanvas-border-color: rgba(255, 255, 255, 0.15);
+    --bs-offcanvas-bg: var(--nav-surface-strong);
+    --bs-offcanvas-color: var(--nav-text);
+    --bs-offcanvas-border-color: var(--nav-border);
+    font-family: var(--nav-font);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
 }
 
-.oc-titulo{
+.oc-titulo {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     margin: 0;
+    font-family: var(--nav-font-title);
     font-size: 1.25rem;
-    color: aliceblue;
+    color: var(--nav-text);
 }
 
-.oc-grupo{
+.oc-titulo img {
+    filter: hue-rotate(270deg) saturate(0.5) brightness(1.15);
+}
+
+.oc-grupo {
     margin-bottom: 1.5rem;
 }
 
-.oc-grupo__titulo{
+.oc-grupo__titulo {
     margin: 0 0 0.5rem 1rem;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-2);
-    opacity: 0.8;
+    color: var(--nav-accent);
+    opacity: 0.9;
 }
 
-.oc-lista{
+.oc-lista {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.oc-link{
+.oc-link {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.9rem;
     padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    color: aliceblue;
+    border-radius: 9px;
+    color: var(--nav-text);
     text-decoration: none;
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.oc-link i{
+.oc-link i {
     width: 1.25rem;
     text-align: center;
     font-size: 1.1rem;
 }
 
-.oc-link:hover{
-    color: var(--color-2);
+.oc-link:hover {
+    color: var(--nav-accent);
 }
 
-.oc-link.active{
-    color: var(--color-2);
-    background-color: rgba(93, 204, 255, 0.12);
+.oc-link.active {
+    color: var(--nav-accent);
+    background-color: rgba(162, 197, 172, 0.15);
 }
 
-.oc-link.active::before{
+.oc-link.active::before {
     content: '';
     position: absolute;
     left: 0;
@@ -295,29 +302,29 @@ app-navbar{
     height: 60%;
     width: 3px;
     border-radius: 3px;
-    background-color: var(--color-2);
+    background-color: var(--nav-accent);
 }
 
 /* ---------- Cambio entre navbar y sidebar ---------- */
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
     .nav-movil,
     .oc-menu,
-    .offcanvas-backdrop{
+    .offcanvas-backdrop {
         display: none !important;
     }
 }
 
-@media (max-width: 1023.98px){
-    app-sidebar{
+@media (max-width: 1023.98px) {
+    app-sidebar {
         display: none;
     }
+
     /* reserva el espacio mientras carga el componente (evita el salto) */
-    app-navbar:not(:defined){
+    app-navbar:not(:defined) {
         display: block;
         min-height: 64px;
     }
 }
-
 
 /* Mostrar con mouse, solo en dispositivos que tengan hover */
 @media (hover: hover) {
@@ -327,9 +334,13 @@ app-navbar{
 }
 
 @keyframes aparecer {
-    from { opacity: 0; translate: var(--desde, -20px 0); }
-    to   { opacity: 1; translate: 0 0; }
+    from {
+        opacity: 0;
+        translate: var(--desde, -20px 0);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
 }
-
-
-

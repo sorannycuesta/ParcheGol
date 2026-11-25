@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -59,39 +59,45 @@
                             <div class="admin-field mb-4">
                                 <label for="imagen" class="form-label admin-form-label">Fotografía de la cancha</label>
                                 <label for="imagen" class="admin-upload-area" id="zonaImagen">
-                                    <img id="vistaPrevia" class="admin-upload-preview" alt="Vista previa de la cancha" hidden>
+                                    <img id="vistaPrevia" class="admin-upload-preview" alt="Vista previa de la cancha"
+                                        hidden>
                                     <span id="placeholderImagen" class="admin-upload-placeholder">
                                         <i class="bi bi-cloud-arrow-up"></i>
                                         <strong>Selecciona una imagen</strong>
                                         <small>JPG, PNG o WEBP · Máximo 5 MB</small>
                                     </span>
                                 </label>
-                                <input class="form-control admin-file-input" type="file" id="imagen"
-                                    name="imagen" accept="image/jpeg,image/png,image/webp" required
-                                    aria-describedby="ayudaImagen">
-                                <div id="ayudaImagen" class="form-text">La imagen se utiliza como fotografía principal de la cancha.</div>
+                                <input class="form-control admin-file-input" type="file" id="imagen" name="imagen"
+                                    accept="image/jpeg,image/png,image/webp" required aria-describedby="ayudaImagen">
+                                <div id="ayudaImagen" class="form-text">La imagen se utiliza como fotografía principal
+                                    de la cancha.</div>
                                 <div class="valid-feedback">Imagen válida.</div>
-                                <div class="invalid-feedback">Selecciona una imagen JPG, PNG o WEBP de máximo 5 MB.</div>
+                                <div class="invalid-feedback">Selecciona una imagen JPG, PNG o WEBP de máximo 5 MB.
+                                </div>
                             </div>
 
                             <!-- Información básica -->
                             <div class="admin-field mb-3">
-                                <label for="tituloCancha" class="form-label admin-form-label">Nombre de la cancha</label>
+                                <label for="tituloCancha" class="form-label admin-form-label">Nombre de la
+                                    cancha</label>
                                 <input type="text" class="form-control" id="tituloCancha" name="titulo"
                                     placeholder="Ej. Cancha La 10" maxlength="50" autocomplete="off" required>
                                 <div class="valid-feedback">Nombre válido.</div>
-                                <div class="invalid-feedback">Usa entre 3 y 50 caracteres. Se permiten letras, números, espacios y algunos signos.</div>
+                                <div class="invalid-feedback">Usa entre 3 y 50 caracteres. Se permiten letras, números,
+                                    espacios y algunos signos.</div>
                             </div>
 
                             <div class="admin-field mb-3">
                                 <label for="descripcion" class="form-label admin-form-label">Descripción</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
-                                    placeholder="Describe brevemente la cancha y sus características..." maxlength="300" required></textarea>
+                                    placeholder="Describe brevemente la cancha y sus características..." maxlength="300"
+                                    required></textarea>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="valid-feedback">Descripción válida.</div>
                                     <small class="admin-counter"><span id="contadorDescripcion">0</span>/300</small>
                                 </div>
-                                <div class="invalid-feedback">Escribe una descripción de entre 20 y 300 caracteres.</div>
+                                <div class="invalid-feedback">Escribe una descripción de entre 20 y 300 caracteres.
+                                </div>
                             </div>
 
                             <div class="admin-field mb-4">
@@ -109,24 +115,31 @@
                             <!-- Servicios incluidos -->
                             <fieldset class="admin-fieldset mb-4">
                                 <legend class="admin-form-label">Servicios incluidos</legend>
-                                <p class="admin-hint">Marca los elementos que estarán disponibles para los jugadores.</p>
+                                <p class="admin-hint">Marca los elementos que estarán disponibles para los jugadores.
+                                </p>
                                 <div class="row g-2">
                                     <div class="col-12 col-sm-4">
                                         <div class="admin-check-card form-check">
-                                            <input class="form-check-input" type="checkbox" id="hidratacion" name="servicios" value="Hidratación">
-                                            <label class="form-check-label" for="hidratacion"><i class="bi bi-droplet me-1"></i>Hidratación</label>
+                                            <input class="form-check-input" type="checkbox" id="hidratacion"
+                                                name="servicios" value="Hidratación">
+                                            <label class="form-check-label" for="hidratacion"><i
+                                                    class="bi bi-droplet me-1"></i>Hidratación</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="admin-check-card form-check">
-                                            <input class="form-check-input" type="checkbox" id="petos" name="servicios" value="Petos">
-                                            <label class="form-check-label" for="petos"><i class="bi bi-people me-1"></i>Petos</label>
+                                            <input class="form-check-input" type="checkbox" id="petos" name="servicios"
+                                                value="Petos">
+                                            <label class="form-check-label" for="petos"><i
+                                                    class="bi bi-people me-1"></i>Petos</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="admin-check-card form-check">
-                                            <input class="form-check-input" type="checkbox" id="balones" name="servicios" value="Balones">
-                                            <label class="form-check-label" for="balones"><i class="bi bi-dribbble me-1"></i>Balones</label>
+                                            <input class="form-check-input" type="checkbox" id="balones"
+                                                name="servicios" value="Balones">
+                                            <label class="form-check-label" for="balones"><i
+                                                    class="bi bi-dribbble me-1"></i>Balones</label>
                                         </div>
                                     </div>
                                 </div>
@@ -137,19 +150,35 @@
                                 <legend class="admin-form-label">Disponibilidad</legend>
                                 <p class="admin-hint">Selecciona los días en los que se podrá reservar la cancha.</p>
                                 <div class="admin-days-grid" id="grupoDias">
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="lunes" name="dias" value="Lunes" checked><label class="form-check-label" for="lunes">Lun</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="martes" name="dias" value="Martes" checked><label class="form-check-label" for="martes">Mar</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="miercoles" name="dias" value="Miércoles" checked><label class="form-check-label" for="miercoles">Mié</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="jueves" name="dias" value="Jueves" checked><label class="form-check-label" for="jueves">Jue</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="viernes" name="dias" value="Viernes" checked><label class="form-check-label" for="viernes">Vie</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="sabado" name="dias" value="Sábado"><label class="form-check-label" for="sabado">Sáb</label></div>
-                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox" id="domingo" name="dias" value="Domingo"><label class="form-check-label" for="domingo">Dom</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="lunes" name="dias" value="Lunes" checked><label class="form-check-label"
+                                            for="lunes">Lun</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="martes" name="dias" value="Martes" checked><label
+                                            class="form-check-label" for="martes">Mar</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="miercoles" name="dias" value="Miércoles" checked><label
+                                            class="form-check-label" for="miercoles">Mié</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="jueves" name="dias" value="Jueves" checked><label
+                                            class="form-check-label" for="jueves">Jue</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="viernes" name="dias" value="Viernes" checked><label
+                                            class="form-check-label" for="viernes">Vie</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="sabado" name="dias" value="Sábado"><label class="form-check-label"
+                                            for="sabado">Sáb</label></div>
+                                    <div class="form-check"><input class="form-check-input dia-checkbox" type="checkbox"
+                                            id="domingo" name="dias" value="Domingo"><label class="form-check-label"
+                                            for="domingo">Dom</label></div>
                                 </div>
-                                <div id="errorDias" class="invalid-feedback">Selecciona al menos un día de disponibilidad.</div>
+                                <div id="errorDias" class="invalid-feedback">Selecciona al menos un día de
+                                    disponibilidad.</div>
 
                                 <div class="row g-3 mt-2">
                                     <div class="col-6 admin-field">
-                                        <label for="horaInicio" class="form-label admin-form-label">Hora de apertura</label>
+                                        <label for="horaInicio" class="form-label admin-form-label">Hora de
+                                            apertura</label>
                                         <input type="time" class="form-control" id="horaInicio" name="horaInicio"
                                             value="09:00" min="09:00" max="20:00" required>
                                         <div class="valid-feedback">Hora válida.</div>
@@ -160,7 +189,8 @@
                                         <input type="time" class="form-control" id="horaFin" name="horaFin"
                                             value="20:00" min="09:00" max="20:00" required>
                                         <div class="valid-feedback">Hora válida.</div>
-                                        <div class="invalid-feedback">Debe ser posterior a la apertura y no superar las 20:00.</div>
+                                        <div class="invalid-feedback">Debe ser posterior a la apertura y no superar las
+                                            20:00.</div>
                                     </div>
                                 </div>
                                 <small class="form-text">Rango inicial configurable en <code>admin.js</code>.</small>
@@ -168,7 +198,8 @@
 
                             <!-- Capacidad y ubicación -->
                             <div class="admin-field mb-3">
-                                <label for="capacidad" class="form-label admin-form-label">Capacidad de jugadores</label>
+                                <label for="capacidad" class="form-label admin-form-label">Capacidad de
+                                    jugadores</label>
                                 <div class="input-group">
                                     <input type="text" inputmode="numeric" class="form-control" id="capacidad"
                                         name="capacidad" placeholder="Ej. 10" maxlength="3" required>
@@ -185,9 +216,20 @@
                                 <div class="valid-feedback">Ubicación válida.</div>
                                 <div class="invalid-feedback">Escribe una ubicación de entre 5 y 100 caracteres.</div>
                             </div>
+                            <!-- Capacidad y ubicación -->
 
                             <div class="admin-field mb-4">
-                                <label for="enlaceMaps" class="form-label admin-form-label">Enlace de Google Maps</label>
+                                <label for="precio" class="form-label admin-form-label"> Precio/Hora</label>
+                                <input type="number" class="form-control" id="precio" name="precio"
+                                    placeholder="$30.000" min="0" step="any" required>
+                                <div class="valid-feedback">Precio correcto</div>
+                                <div class="invalid-feedback">Escribe un valor adecuado.</div>
+                            </div>
+
+
+                            <div class="admin-field mb-5">
+                                <label for="enlaceMaps" class="form-label admin-form-label">Enlace de Google
+                                    Maps</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                     <input type="url" class="form-control" id="enlaceMaps" name="enlaceMaps"
@@ -230,7 +272,8 @@
                         <div class="admin-console-note">
                             <i class="bi bi-terminal me-2"></i>
                             Los datos del catálogo también se imprimirán como JSON en la consola del navegador.
-                            <span class="d-block mt-1">Abre las herramientas de desarrollador con <kbd>F12</kbd> y entra en la pestaña <strong>Consola</strong>.</span>
+                            <span class="d-block mt-1">Abre las herramientas de desarrollador con <kbd>F12</kbd> y entra
+                                en la pestaña <strong>Consola</strong>.</span>
                         </div>
                     </section>
                 </div>
