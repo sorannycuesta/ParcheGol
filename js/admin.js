@@ -32,6 +32,7 @@ const regex = {
   hora: /^(?:[01]\d|2[0-3]):[0-5]\d$/,
   capacidad: /^(?:[1-9]|[1-9]\d|100)$/,
   ubicacion: /^[\p{L}\p{N}][\p{L}\p{N}\s.,#°º\-/]{3,99}$/u,
+  precio:  /^(?:[1-9]\d{3}|[1-9]\d{4}|[1-2]\d{5}|300000)$/,
   maps: /^https?:\/\/(?:www\.)?(?:google\.[a-z.]+\/maps(?:[/?#]|$)|maps\.google\.[a-z.]+(?:[/?#]|$)|maps\.app\.goo\.gl(?:[/?#]|$)|goo\.gl\/maps(?:[/?#]|$))/i,
 };
 
@@ -46,6 +47,7 @@ const elementos = {
   horaFin: document.getElementById("horaFin"),
   capacidad: document.getElementById("capacidad"),
   ubicacion: document.getElementById("ubicacion"),
+  precio : document.getElementById("precio"),
   maps: document.getElementById("enlaceMaps"),
   lista: document.getElementById("listaCanchas"),
   estadoVacio: document.getElementById("estadoVacio"),
@@ -80,6 +82,8 @@ const campos = [
   },
   { el: elementos.capacidad, validar: (valor) => regex.capacidad.test(valor.trim()) },
   { el: elementos.ubicacion, validar: (valor) => regex.ubicacion.test(valor.trim()) },
+  { el: elementos.precio, validar: (valor) => regex.precio.test(valor.trim()) },
+
   { el: elementos.maps, validar: (valor) => regex.maps.test(valor.trim()) },
 ];
 
@@ -230,6 +234,7 @@ function capturarDatosCancha(imagenBase64, id = Date.now()) {
     },
     capacidad: Number(elementos.capacidad.value),
     ubicacion: elementos.ubicacion.value.trim(),
+    precio: elementos.precio.value,
     enlaceMaps: elementos.maps.value.trim(),
   };
 }
@@ -304,6 +309,10 @@ function mostrarCancha(cancha) {
   ubicacion.rel = "noopener noreferrer";
   ubicacion.innerHTML = '<i class="bi bi-geo-alt me-1"></i>' + escaparHtml(cancha.ubicacion);
 
+  const precio = crearElemento("span", "admin-detail-item");
+  precio.innerHTML = '<i class="fa-solid fa-sack-dollar"></i>';
+  precio.append(document.createTextNode(`Precio: ${formatearPrecio(cancha.precio)}`));
+
   const servicios = crearElemento("p", "admin-services");
   const serviciosIncluidos = Object.entries(cancha.servicios)
     .filter(([, incluido]) => incluido)
@@ -315,6 +324,9 @@ function mostrarCancha(cancha) {
   servicios.textContent = serviciosIncluidos.length
     ? `Incluye: ${serviciosIncluidos.join(" · ")}`
     : "Sin servicios adicionales seleccionados";
+
+  
+
 
   const acciones = crearElemento("div", "admin-card-actions");
   const botonEditar = crearElemento("button", "btn btn-sm btn-outline-primary editar", "Editar");
@@ -328,7 +340,7 @@ function mostrarCancha(cancha) {
   botonEliminar.title = "Eliminar una entrada del catalogo";
   acciones.append(botonEditar, botonEliminar);
 
-  cuerpo.append(encabezado, descripcion, datos, ubicacion, servicios, acciones);
+  cuerpo.append(encabezado, descripcion, datos, ubicacion,  servicios, precio , acciones);
   tarjeta.append(imagen, cuerpo);
   elementos.lista.prepend(tarjeta);
 }
@@ -342,6 +354,17 @@ function escaparHtml(texto) {
     '"': "&quot;",
     "'": "&#39;",
   })[caracter]);
+}
+
+function formatearPrecio(valor) {
+  const numero = Number(valor);
+  if (Number.isNaN(numero)) return valor;
+  return numero.toLocaleString("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
 }
 
 function actualizarCatalogoJson() {
@@ -432,6 +455,7 @@ function rellenarFormulario(cancha) {
   elementos.horaFin.value = cancha.disponibilidad.horaFin;
   elementos.capacidad.value = cancha.capacidad || "";
   elementos.ubicacion.value = cancha.ubicacion;
+  elementos.precio.value = cancha.precio;
   elementos.maps.value = cancha.enlaceMaps;
   elementos.contadorDescripcion.textContent = cancha.descripcion.length;
 
